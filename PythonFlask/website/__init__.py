@@ -1,9 +1,15 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
+db = SQLAlchemy()
+DB_NAME = 'database.db'
 
 def create_app():
     app = Flask(__name__)  # needed as a default setup for Flask
     app.config['SECRET_KEY'] = 'BakerCamilaBella'
+    app.config['SQLALCHEMY_DATABASE_URL'] = f"sqlite:///{DB_NAME}"
+    db.init_app(app)
+
 
     # IMPORTING BLUEPRINTS TO __INIT__ FILE
     from .views import views
