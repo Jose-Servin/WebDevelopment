@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    
+
+    <form method="get">
+    <h3> Do you own a dog? </h3>
+        <input id="Yes" type="radio" name="dog_choice" value="Yes">
+        <label for="Yes">Yes</label>
+        <br>
+        <input  id="No" type="radio" name="dog_choice" value="No">
+        <label for="No">No</label>
+        
+        
+        <p> How clean is your car?</p>
+        <select name="rating">
+            <option value="very_clean">
+                Very Clean
+            </option>
+            <option value="somewhat_clean">
+                Somewhat Clean
+            </option>
+            <option value="very_dirty">
+                Very Dirty
+            </option>
+            
+        </select>
+        <p> Any other comments? </p>
+        
+        <textarea name="user_comments" rows="8" cols="80"></textarea>
+        <input type="submit" name="user_comments" value="Submit Feedback">
+
+    
+    </form>
+    
+    <form action="http://www.google.com" method="get">
+        <h1> Log In </h1>
+        <h2> Please provide your email and password. </h2>
+    
+            <label for="email_box"> Email: </label>
+            <input id = "email_box" type="email" name="user_email" placeholder="email">
+            <label for="password_box"> Password: </label>
+            <input id ="password_box" type="password" name="user_password" placeholder="password">
+            <input type="submit" name="" value="Enter">
+           
+
+    </form>
+</body>
+</html>
