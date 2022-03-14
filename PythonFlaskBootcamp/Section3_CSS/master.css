@@ -1,3 +1,85 @@
+/*
+body{
+    background: url("https://images.unsplash.com/photo-1610123598195-eea6b6be4c48?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80") no-repeat;
+}
+
 h1{
     color: cornflowerblue;
 }
+
+li {
+    color: rgb(30, 200, 0);
+}
+
+p{
+    color: #B85811
+}
+
+h4{
+    color: rgba(128,0,0,0.7);
+}
+
+*/
+
+/*div{
+    background: cornflowerblue;
+    border: thick dashed black;
+
+}
+
+p{
+    color: firebrick;
+}
+
+span{
+    background: grey;
+    color: black;
+}*/
+
+/*.firstDiv{
+    color: dodgerblue;
+}
+
+.secondDiv{
+    background: gray;
+}
+
+#unique_p {
+    color: firebrick;
+}*/
+
+h1{
+    font-family: 'League Gothic', sans-serif;
+}
+
+#list_paragraph{
+    font-size: 15px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
