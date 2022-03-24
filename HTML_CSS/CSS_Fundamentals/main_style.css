@@ -1,11 +1,33 @@
-/*  Creating List Selectors*/
-h1, h2, h3, h4, p, li {
+/* Inheritance: easily override if child element has it's own property */
+
+body {
+    color: #5d5d5d;
     font-family: 'League Gothic', sans-serif;
+
+}
+
+/*  Creating List Selectors*/
+
+/* Putting text and color properties in the body style */
+
+
+/*h1, h2, h3, h4, p, li {*/
+/*    font-family: 'League Gothic', sans-serif;*/
+/*    !* This overrides the Parent property of the Body element *!*/
+/*    color: #5d5d5d;*/
+
+/*}*/
+
+/* Here we see conflict between color of h elements but blue is the final color because
+it comes last in the CSS file
+*/
+h1, h2, h3 {
+    color: #4a7bea
 }
 
 
 h1 {
-    color: cornflowerblue;
+    color: #f63232;
     font-size: 26px;
     text-transform: uppercase;
     font-style: italic;
@@ -72,3 +94,91 @@ article header p {
     list-style-type: none;
 }
 
+.main-header {
+    background-color: #e7e7e7;
+}
+
+aside {
+    background-color: #e7e7e7;
+    /*border: 5px solid cornflowerblue; */
+    border-top: 5px solid cornflowerblue;
+    border-bottom: 5px solid cornflowerblue;
+
+}
+
+/*
+CSS Pseudo-class
+ */
+
+/*
+.first-li {
+    font-weight: bold;
+}
+
+ */
+
+/*
+li:first-child {
+    font-weight: bold;
+}
+
+li:last-child {
+    font-style: italic;
+}
+
+li:nth-child(2) {
+    color: red;
+}
+
+li:nth-child(odd) {
+    color: darkblue;
+}
+
+ */
+
+/*
+CSS Pseudo class misconception
+ */
+
+article p:last-child {
+    color: red;
+}
+
+/*  this targets elements with href attributes only */
+a:link {
+    color: mediumpurple;
+    text-decoration: none;
+}
+
+a:visited {
+    color: purple;
+}
+
+a:hover {
+    color: #f63232;
+    font-weight: bold;
+    text-decoration: 5px underline black;
+}
+
+a:active {
+    background-color: black;
+    font-style: italic;
+}
+
+/*  Conflicts between Selectors */
+
+#copyright {
+    color: red;
+}
+
+.copyright {
+    color: blue;
+}
+
+.text {
+    color: green;
+}
+
+footer p {
+    color: orange;
+}
