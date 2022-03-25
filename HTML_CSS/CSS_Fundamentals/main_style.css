@@ -1,4 +1,8 @@
 /* Inheritance: easily override if child element has it's own property */
+* {
+    padding: 0;
+    margin: 0;
+}
 
 body {
     color: #5d5d5d;
@@ -21,6 +25,22 @@ body {
 /* Here we see conflict between color of h elements but blue is the final color because
 it comes last in the CSS file
 */
+
+
+.main-header {
+    background-color: #e7e7e7;
+    padding: 20px 40px;
+}
+
+aside {
+    background-color: #e7e7e7;
+    /*border: 5px solid cornflowerblue; */
+    border-top: 5px solid cornflowerblue;
+    border-bottom: 5px solid cornflowerblue;
+
+}
+
+
 h1, h2, h3 {
     color: #4a7bea
 }
@@ -31,11 +51,12 @@ h1 {
     font-size: 26px;
     text-transform: uppercase;
     font-style: italic;
-    text-align: center;
+    text-align: left;
 }
 
 h2 {
     font-size: 42px;
+    text-align: center;
 
 }
 
@@ -57,7 +78,12 @@ p {
 
 li {
     font-size: 20px;
+    margin-bottom: 10px;
 
+}
+
+li:last-child {
+    margin-bottom: 0;
 }
 
 /*  Descendent selector */
@@ -94,17 +120,6 @@ article header p {
     list-style-type: none;
 }
 
-.main-header {
-    background-color: #e7e7e7;
-}
-
-aside {
-    background-color: #e7e7e7;
-    /*border: 5px solid cornflowerblue; */
-    border-top: 5px solid cornflowerblue;
-    border-bottom: 5px solid cornflowerblue;
-
-}
 
 /*
 CSS Pseudo-class
@@ -181,4 +196,17 @@ a:active {
 
 footer p {
     color: orange;
+}
+
+button {
+    font-size: 20px;
+}
+
+button:hover {
+    background-color: red;
+
+}
+
+.reasons-list {
+    list-style-type: square;
 }
