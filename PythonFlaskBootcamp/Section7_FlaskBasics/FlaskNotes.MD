@@ -146,3 +146,82 @@ the terminal when the application runs and is needed to use the interactive/live
 
 Realistically, we want to connect a view function to render HTML templates. Flask will automatically look for HTML
 Templates in the <strong>templates</strong> directory.
+
+1. We first create a templates' folder in the same directory level as our .py flask application.
+
+```
+/application.py
+/templates
+    /hello.html
+```
+
+2. We create the HTML page.
+3. Using `from flask import render_templates` we define our view function and return the html template.
+
+```python
+@app.route('/')  # this renders at http://127.0.0.1:5000/
+def index():
+    return render_template('index.html')
+```
+
+## Updated Project Setup
+
+To better organize our code, we will use the following directory setup.
+
+* static folder for images
+* templates for html pages
+* application.py file for flask application.
+
+```
+/application.py
+/templates
+    /hello.html
+/static
+    /code_image.jpg
+```
+
+To reference the content inside the static folder we use `../static/file_name.jpg` which can read as "going back one
+directory level, go into the static directory and use the file_name file."
+
+## Template Variables
+
+We want to be able to use Python code in our app, changing and updating variables and logic, and then send that
+information to the template. To do this, we use the Jinja template engine. <br>
+
+Jinja templating will let us directly insert variables from our Python code to the HTML file.
+
+* Syntax: `{{some_variable}}`
+
+1. We define a variable in our view function that we want to display in the HTML template.
+
+```python
+@app.route('/')  # this renders at http://127.0.0.1:5000/
+def index():
+    user_name = 'Servin'  # variable defined
+    return render_template('index.html', user_name=user_name)
+```
+
+2. To insert this `user_name` into our HTML file we do the following:
+    1. Define the variable in the render_template function as a parameter. Typically the variable and parameter are the
+       same name.
+    2. Use that parameter in the HTML template.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1> Howdy {{user_name}}</h1>
+
+</body>
+</html>
+```
+
+To summarize, we get to define whatever variables we want following standard python syntax. We then define a template
+parameter and set it equal to the variable we defined. So template parameter == variable. Finally, in the HTML template,
+we can use that variable using the syntax `{{parameter_name}}`.
+
+## Template Control Flow
