@@ -225,3 +225,122 @@ parameter and set it equal to the variable we defined. So template parameter == 
 we can use that variable using the syntax `{{parameter_name}}`.
 
 ## Template Control Flow
+
+We are able to use Python control/condition statements inside our HTMl template. For example, if we want to create a
+list of each element in an iterable we can do the following:
+
+### for loop
+
+```html
+
+<ul>
+    {% for letter in name%}
+    <li>{{letter}}</li>
+    {%endfor%}
+</ul>
+```
+
+Control flow syntax is inserted between `{%%}`.
+
+### if statement
+
+Let's first create a list of users to check if a certain user is in that list.
+
+```python
+@app.route('/')
+def index():
+    name = 'Servin'
+    name_list = list(name)
+    users = ['Bella', 'Camila', 'Servin']  # creating a list of users 
+    return render_template('index.html', name=name, name_list=name_list, users=users)
+```
+
+Next we add the `for` control flow in our HTML template.
+
+```html
+Let's see if Baker is in the users:
+{% if 'Baker' in users %}
+<p> Found you Baker!</p>
+{% else %}
+<p>Baker is not a user....</p>
+{% endif %}
+```
+
+### Real Case: Login message
+
+First we create the variable user_logged_in and set it equal to True.
+
+```python
+@app.route('/')
+def index():
+    name = 'Servin'
+    name_list = list(name)
+    user_logged_in = True
+    users = ['Bella', 'Camila', 'Servin']  # creating a list of users 
+    return render_template('index.html', name=name, name_list=name_list, users=users, user_loggedin=user_logged_in)
+```
+
+Next we use that variable in our HTML template to format special messages to show when the condition is either True or
+False.
+
+```html
+
+Special Message if you are logged in!
+{% if user_logged_in%}
+<h2>Welcome! Thank you for logging in! </h2>
+{%else%}
+<h2>Please log in to continue.</h2>
+{% endif %}
+```
+
+Key things to remember:
+
+* The syntax used for python in HTML templates is `{% <python goes here> %}`.
+* `for` and `if` statements have to be ended with `{% endfor %}` and `{% endif %}`.
+
+## Template Inheritance
+
+Template inheritance is used to minimize the amount of code you re-type since by definition, template inheritance is the
+re-use of page/template components that are set up in a `base.html` file. <br>
+
+To re-use the code from this `base.html` template, we use the `{% extend "base.html" %` and `{% block %}`
+statements. <br>
+
+Visually, this looks like:
+<img src="static/template_inheritance.png">
+
+### Implementation
+
+We start by defining various HTML templates. We have `base.html`, `home.html` and `user.html`. Next, we define the view
+functions that will return the HTML templates along with any variables created.
+
+```python
+@app.route('/')  # this renders at http://127.0.0.1:5000/
+def home():
+    return render_template('home.html')
+
+
+@app.route('/user/<name>')
+def user_page(name):
+    return render_template('user.html', name=name)
+```
+
+1. Set up `base.html` containing HTML elements that will be used in various templates. In other words, in `base.html`
+   you place the HTML elements that will be re-used between templates.
+
+## Filters
+
+A great way to quickly change/edit a variable passed to a template.
+
+* syntax used : `{{ variable | filter }}`
+
+```html
+<h1> Howdy {{name}}</h1>
+```
+
+This renders as `Howdy jose`. If we want to capitalize the name variable, we would use `{{ name | capitalize }}`.
+
+```html
+<h1> Howdy {{name | capitalize}}</h1>
+```
+

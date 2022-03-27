@@ -16,5 +16,27 @@
 
 </p>
 
+To make a list of each element in an iterable:
+<ul>
+    {% for letter in name%}
+    <li>{{letter}}</li>
+    {% endfor %}
+</ul>
+
+Let's see if Baker is in the users:
+{% if 'Baker' in users %}
+<p> Found you Baker!</p>
+{% else %}
+<p>Baker is not a user....</p>
+{% endif %}
+
+Special Message if you are logged in!
+{% if user_logged_in%}
+<h2>Welcome! Thank you for logging in! </h2>
+{%else%}
+<h2>Please log in to continue.</h2>
+{% endif %}
+
+
 </body>
 </html>
