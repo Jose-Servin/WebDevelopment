@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Welcome to MyWebsite! </h1>
+        <p class="col-md-8 fs-4">Want to sign up for free notes and textbooks?</p>
+        <a href="{{url_for('sign_up')}}"> Sign-Up </a>
+    </div>
+</div>
+
+{% endblock %}
+

@@ -328,6 +328,63 @@ def user_page(name):
 1. Set up `base.html` containing HTML elements that will be used in various templates. In other words, in `base.html`
    you place the HTML elements that will be re-used between templates.
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyWebsite</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!-- NavBar setup-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" href="#">Features</a>
+                <a class="nav-link active" href="#">Pricing</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+{% block content %}
+
+{% endblock %}
+
+</body>
+</html>
+```
+
+Here we have our `base.html` page defined with a simple Nav Bar.
+
+2. Build on `home.html` using components from `base.html` by defining block contents.
+
+```html
+{% extends "base.html" %}
+
+{% block content %}
+<h1> This is the home page</h1>
+
+{% endblock %}
+```
+
+Here home.html will inherit the nav bar defined in base.html, along with having unique html elements.
+
 ## Filters
 
 A great way to quickly change/edit a variable passed to a template.
@@ -344,3 +401,27 @@ This renders as `Howdy jose`. If we want to capitalize the name variable, we wou
 <h1> Howdy {{name | capitalize}}</h1>
 ```
 
+## url_for() help function
+
+The `url_for()` helper function allows us to easily connect other template pages or files within our templates.
+
+1. Link to different views <br>
+   To link to a different view function, you pass the view function name. So now when you click Home, it will run the
+   home view function and return back whatever template it returns. For this example it's `home.html`.
+
+```html
+<a class="nav-link active" aria-current="page" href="{{url_for('home')}}">Home</a>
+
+
+```
+
+2. Link to static file content. <br>
+   To link to a static file you pass the folder name `static` along with `filename`. Here when you click on `View Code`
+   you will open the image.
+
+```html
+<a href="{{url_for('static',filename='post-img.jpg')}}">View code</a>
+
+```
+
+## Template Forms

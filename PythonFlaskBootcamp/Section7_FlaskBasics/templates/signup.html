@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Please fill out the form. We do not save any information. </h1>
+        <form action="{{url_for('thank_you')}}">
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="First name" name="first">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Last name" name="last">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
