@@ -8,9 +8,21 @@
         
         <p>all of the 3 conditions passed! </p>
         
+        {% elif condition_one and condition_two %}
+        
+        <p> Condition_three did not pass </p>
+        
+        {% elif condition_one and condition_three %}
+        
+        <p>Condition_two did not pass </p>
+        
+        {% elif condition_two and condition_three %}
+        
+        <p>Condition one did not pass. </p>
+        
         {% else %}
         
-        <p> One of the conditions did not pass. </p>
+        <p> None of the conditions passed, please try again! </p>
         
         {% endif %}
     

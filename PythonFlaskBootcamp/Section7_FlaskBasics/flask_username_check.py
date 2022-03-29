@@ -19,8 +19,12 @@ def report():
     condition_two = any(i.islower() for i in username)
 
     # must have a number at the end check
-    last_char = int(username[-1])
-    condition_three = isinstance(last_char, int)
+    try:
+        last_char = int(username[-1])
+        condition_three = isinstance(last_char, int)
+    except ValueError:
+        condition_three = False
+
     return render_template('username_report.html', username=username, condition_one=condition_one,
                            condition_two=condition_two, condition_three=condition_three)
 
