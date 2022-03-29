@@ -1,0 +1,27 @@
+{%extends "username_base.html" %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h1>Welcome to the Username checker! </h1>
+        <p class="lead"> Let's see if your username is secure. </p>
+        <p class="lead">
+            Fill out the form below with a username that follows the rules listed:
+        </p>
+        <form action="{{url_for('report')}}">
+            
+            <ul>
+                <li>Must have an uppercase letter somewhere.</li>
+                <li>Must have a lower case letter somewhere.</li>
+                <li>Must have a number at the end.</li>
+            </ul>
+            
+            <label> Username:
+                <input type="text" name="username">
+            </label>
+            
+            <button class="btn btn-secondary" type="submit">Check</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
