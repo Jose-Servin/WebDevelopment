@@ -8,121 +8,128 @@
 </head>
 <body>
 <!-- -->
-<!-- Creating Header container -->
-<header class="main-header">
-    <h1> 📘 The Code Magazine</h1>
-    
-    
-    <!--Grouping links together inside a nav element -->
-    <nav>
-        <a href='other_page.html'> Other Page </a>
-        <a href='#'> Challenges </a>
-        <a href='#'> Flexbox</a>
-        <a href='#'> Grid</a>
-    </nav>
-</header>
 
-<!--Using the article tag to self-contain page content -->
-
-
-<article>
-    <header>
-        <h2> The Basic Language of the Web: HTML </h2>
-        <img src="img/laura-jones.jpg" alt="Author Laura Jones Image" width="50">
-        <p id="author">
-            Posted by <strong> Laura Jones</strong> on Monday. June 21st 2017
-        </p>
-        <img src="img/post-img.jpg" alt="html code on screen" width="500">
+<!-- creating container for content so we can center it-->
+<div class="container">
+    <!-- Creating Header container -->
+    <header class="main-header">
+        <h1> 📘 The Code Magazine</h1>
+        
+        
+        <!--Grouping links together inside a nav element -->
+        <nav>
+            <a href='other_page.html'> Other Page </a>
+            <a href='#'> Challenges </a>
+            <a href='#'> Flexbox</a>
+            <a href='#'> Grid</a>
+        </nav>
     </header>
-    <p>
-        All modern websites and web applications are built using three <em>fundamental</em> technologies: HTML, CSS and
-        JavaScript.
-        These are the languages of the web.
-    </p>
-    <p>
-        In this post, let's focus on HTML. We will learn what HTML is all about, and why you too should learn it.
-    </p>
-    <h3> What is HTML? </h3>
-    <p>
-        HTML stands for <strong>H</strong>yper<strong>T</strong>ext <strong>M</strong>arkup <strong>L</strong>anguage.
-        It's
-        a markup language that web developers
-        use to structure and describe
-        the content of a webpage (not a programming language).
-    </p>
-    <p>
-        HTML consists of elements that describe different types of content: paragraphs, links, headings, images, video,
-        etc.
-        Web browsers understand HTML and render HTML code as websites.
-    </p>
-    <p>
-        In HTML, each element is made up of 3 parts:
-    </p>
-    <ol>
-        <li class="first-li"> The opening tag</li>
-        <li> The closing tag</li>
-        <li> The actual element</li>
-    </ol>
     
-    <p>
-        You can learn more at the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">MDN Web
-        Docs.</a>
-    </p>
+    <!--Using the article tag to self-contain page content -->
     
-    <h3>
-        Why should you learn HTML?
-    </h3>
     
-    <p>
-        There are countless reasons for learning the fundamental language of the web. Here are 5 of them:
-    </p>
-    
-    <ul class="reasons-list">
-        <li class="first-li">To be able to use the fundamental web dev language</li>
-        <li>To hand-craft beautiful websites instead of relying on tools like WordPress or Wix</li>
-        <li>To build web applications</li>
+    <article>
+        <header class="post-header">
+            <h2> The Basic Language of the Web: HTML </h2>
+            <img src="img/laura-jones.jpg" alt="Author Laura Jones Image" width="50">
+            <p id="author">
+                Posted by <strong> Laura Jones</strong> on Monday. June 21st 2017
+            </p>
+            <img src="img/post-img.jpg" alt="html code on screen" width="500" class="author-image">
+        </header>
+        <p>
+            All modern websites and web applications are built using three <em>fundamental</em> technologies: HTML, CSS
+            and
+            JavaScript.
+            These are the languages of the web.
+        </p>
+        <p>
+            In this post, let's focus on HTML. We will learn what HTML is all about, and why you too should learn it.
+        </p>
+        <h3> What is HTML? </h3>
+        <p>
+            HTML stands for <strong>H</strong>yper<strong>T</strong>ext <strong>M</strong>arkup <strong>L</strong>anguage.
+            It's
+            a markup language that web developers
+            use to structure and describe
+            the content of a webpage (not a programming language).
+        </p>
+        <p>
+            HTML consists of elements that describe different types of content: paragraphs, links, headings, images,
+            video,
+            etc.
+            Web browsers understand HTML and render HTML code as websites.
+        </p>
+        <p>
+            In HTML, each element is made up of 3 parts:
+        </p>
+        <ol>
+            <li class="first-li"> The opening tag</li>
+            <li> The closing tag</li>
+            <li> The actual element</li>
+        </ol>
         
-        <li>To impress friends</li>
+        <p>
+            You can learn more at the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">MDN
+            Web
+            Docs.</a>
+        </p>
         
-        <li>To have fun 😃</li>
+        <h3>
+            Why should you learn HTML?
+        </h3>
+        
+        <p>
+            There are countless reasons for learning the fundamental language of the web. Here are 5 of them:
+        </p>
+        
+        <ul class="reasons-list">
+            <li class="first-li">To be able to use the fundamental web dev language</li>
+            <li>To hand-craft beautiful websites instead of relying on tools like WordPress or Wix</li>
+            <li>To build web applications</li>
+            
+            <li>To impress friends</li>
+            
+            <li>To have fun 😃</li>
+        
+        </ul>
+        
+        <p> Hopefully you learned something new here. See you next time! </p>
+        <button> Email Me</button>
+    </article>
     
-    </ul>
+    <!--Aside: represents a portion of a doc whose content is only indirectly related to the main content -->
+    <aside>
+        <h4> Related posts</h4>
+        <ul class="related">
+            <li>
+                <img src="img/related-1.jpg" alt="man coding on laptop" width="100">
+                <a href="main.html"> How to Learn Web Development </a>
+            </li>
+            <p class="author-name"> By Jonas Schmedtmann </p>
+            <li>
+                <img src="img/related-2.jpg" alt="lightning strike" width="100">
+                <a href="main.html"> The Unknown Powers of CSSt </a>
+            </li>
+            <p class="author-name"> By Jim Dillon</p>
+            <li>
+                <img src="img/related-3.jpg" alt="code on computer screen" width="100">
+                <a href="main.html">Why JavaScript is awesome </a>
+            </li>
+            <p class="author-name"> By Matilda </p>
+        </ul>
+        
+        <p>
+            <a href="#" class="back-to-top"> Back to Top </a>
+        
+        </p>
+    </aside>
     
-    <p> Hopefully you learned something new here. See you next time! </p>
-    <button> Email Me</button>
-</article>
-
-<!--Aside: represents a portion of a doc whose content is only indirectly related to the main content -->
-<aside>
-    <h4> Related posts</h4>
-    <ul class="related">
-        <li>
-            <img src="img/related-1.jpg" alt="man coding on laptop" width="100">
-            <a href="main.html"> How to Learn Web Development </a>
-        </li>
-        <p class="author-name"> By Jonas Schmedtmann </p>
-        <li>
-            <img src="img/related-2.jpg" alt="lightning strike" width="100">
-            <a href="main.html"> The Unknown Powers of CSSt </a>
-        </li>
-        <p class="author-name"> By Jim Dillon</p>
-        <li>
-            <img src="img/related-3.jpg" alt="code on computer screen" width="100">
-            <a href="main.html">Why JavaScript is awesome </a>
-        </li>
-        <p class="author-name"> By Matilda </p>
-    </ul>
-    
-    <p>
-        <a href="#"> Back to Top </a>
-    
-    </p>
-</aside>
-
-<footer>
-    <p id="copyright" class="copyright text">
-        Copyright &copy; 2022 by Servin
-    </p>
-</footer>
+    <footer>
+        <p id="copyright" class="copyright text">
+            Copyright &copy; 2022 by Servin
+        </p>
+    </footer>
+</div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 /* Inheritance: easily override if child element has it's own property */
 * {
     padding: 0;
-    margin: 0;
+    margin: 0 3px 0 3px;
 }
 
 body {
@@ -30,6 +30,8 @@ it comes last in the CSS file
 .main-header {
     background-color: #e7e7e7;
     padding: 20px 40px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 aside {
@@ -37,7 +39,13 @@ aside {
     /*border: 5px solid cornflowerblue; */
     border-top: 5px solid cornflowerblue;
     border-bottom: 5px solid cornflowerblue;
+    /* values are entered using: Top/Bottom Left/Right*/
+    padding: 50px 0;
+    width: 500px;
+}
 
+article {
+    margin-bottom: 50px;
 }
 
 
@@ -51,18 +59,23 @@ h1 {
     font-size: 26px;
     text-transform: uppercase;
     font-style: italic;
-    text-align: left;
 }
 
 h2 {
     font-size: 42px;
-    text-align: center;
+    text-align: left;
+    margin-bottom: 20px;
+}
 
+.post-header {
+    margin-bottom: 40px;
 }
 
 h3 {
 
     font-size: 30px;
+    margin-bottom: 15px;
+    margin-top: 15px;
 }
 
 h4 {
@@ -74,6 +87,7 @@ h4 {
 p {
     font-size: 20px;
     /*line-height: 1.5; */
+    margin-bottom: 15px;
 }
 
 li {
@@ -84,6 +98,11 @@ li {
 
 li:last-child {
     margin-bottom: 0;
+}
+
+ul, ol {
+    margin-left: 50px;
+    margin-bottom: 15px;
 }
 
 /*  Descendent selector */
@@ -209,4 +228,18 @@ button:hover {
 
 .reasons-list {
     list-style-type: square;
+}
+
+.back-to-top {
+    margin-left: 15px;
+}
+
+.author-image {
+    width: 50%;
+    height: auto;
+}
+
+.container {
+    width: 1750px;
+    margin: 0 auto;
 }
