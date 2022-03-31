@@ -4,26 +4,31 @@
 <div class="p-5 mb-4 bg-light rounded-3">
     <div class="container-fluid py-5">
         <h1>Checking username: {{username}}</h1>
-        {% if condition_one and condition_two and condition_three %}
+        {% if all_good %}
         
-        <p>all of the 3 conditions passed! </p>
+        <p>Your username passed all checks! </p>
         
-        {% elif condition_one and condition_two %}
-        
-        <p> Condition_three did not pass </p>
-        
-        {% elif condition_one and condition_three %}
-        
-        <p>Condition_two did not pass </p>
-        
-        {% elif condition_two and condition_three %}
-        
-        <p>Condition one did not pass. </p>
-        
+        <!-- Here we use the else statement and build out the list with if statements-->
         {% else %}
-        
-        <p> None of the conditions passed, please try again! </p>
-        
+        <ul>
+            {% if not lower %}
+            
+            <li>Your username does not contain a lowercase letter.</li>
+            
+            {% endif %}
+            
+            {% if not upper %}
+            
+            <li>Your username does not contain an uppercase letter.</li>
+            
+            {% endif %}
+            
+            {% if not final_num %}
+            
+            <li>Your username does not end in a number.</li>
+            
+            {% endif %}
+        </ul>
         {% endif %}
     
     </div>

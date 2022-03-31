@@ -12,21 +12,28 @@ def index():
 def report():
     username = request.args.get('username')
 
+    # Pre-define the 3 boolean conditions
+    lower = False
+    upper = False
+    final_num = False
+
     # must have an uppercase letter check
-    condition_one = (any(i.isupper() for i in username))
+    upper = (any(i.isupper() for i in username))
 
     # must have a lower case letter check
-    condition_two = any(i.islower() for i in username)
+    lower = any(i.islower() for i in username)
 
     # must have a number at the end check
     try:
         last_char = int(username[-1])
-        condition_three = isinstance(last_char, int)
+        final_num = isinstance(last_char, int)
     except ValueError:
-        condition_three = False
+        final_num = False
 
-    return render_template('username_report.html', username=username, condition_one=condition_one,
-                           condition_two=condition_two, condition_three=condition_three)
+    all_good = lower and upper and final_num
+
+    return render_template('username_report.html', username=username, lower=lower,
+                           upper=upper, final_num=final_num, all_good=all_good)
 
 
 if __name__ == "__main__":
