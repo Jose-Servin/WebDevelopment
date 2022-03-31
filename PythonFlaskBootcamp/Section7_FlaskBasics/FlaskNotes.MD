@@ -424,4 +424,89 @@ The `url_for()` helper function allows us to easily connect other template pages
 
 ```
 
-## Template Forms
+## Introduction to Flask Forms
+
+Flask Forms are built using Flask WTF Form class. General steps to building out Forms on Flask are the following:
+
+1. Configure a secret key
+2. Create a WTForm class
+    1. Define attributes for each part of the form
+3. Set up view functions
+    1. add methods = ['GET','POST]
+    2. create instance of class
+    3. handle form submission
+
+## Flask Forms Example
+
+```python
+# Section 9: Forms with Flask
+from flask import Flask, render_template
+from flask_wtf import FlaskForm
+# from wtforms you import certain fields and provide parameters in the class buildup
+from wtforms import StringField, SubmitField
+
+# Step 1: create application
+app = Flask(__name__)
+
+# Step 2: configure secret key to use with CSRF (cross-site request forgery)
+# app.config is a configuration dictionary for out app
+app.config['SECRET_KEY'] = 'mysecretkey123'
+
+
+# Step 3: create WTF Form class
+# inherit from FlaskForm
+class InfoForm(FlaskForm):
+    # define class attributes
+    department = StringField("What department do you work in? ")
+    submit = SubmitField("Submit")
+
+
+# Step 4: create view function that creates instance of WTF form class and checks if it's a valid submission
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    # set department variable equal to False, different from the department attribute defined in our class
+    department = False
+    # create instance of our InfoForm class 
+    form = InfoForm()
+
+    if form.validate_on_submit():
+        # grab department from form (grabs data submitted for this attribute)
+        department = form.department.data
+        # reset this attribute to an empty string so the StringField doesn't show previous entry
+        form.department.data = ''
+
+    return render_template('Flask_Forms_Index.html', form=form, department=department)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+```
+
+After defining the simple backend using wtforms class we define our index.html page.
+
+```html
+<p>
+    <!-- originally set to False so at start up else block runs but then grabs Form data entered -->
+    {% if department %}
+    The department you work at is: {{department}}. <br>
+    Update it in the form below:
+    
+    {% else %}
+    Please enter your department:
+    
+    {% endif %}
+</p>
+
+
+<form method="POST">
+    <!-- This is for the CSRF security feature, accessible because we inherit from FlaskForm in our class setup.-->
+    {{ form.hidden_tag() }}
+    <!-- for fields defined such as StringField we can access label or execute which will create element -->
+    <!-- form.department.label accesses the text inside the () for our defined StringField -->
+    <!-- form.department() will run the function -->
+    {{ form.department.label }} {{ form.department() }}
+    <!-- Here we are calling the submit method defined in out InfoForm class -->
+    {{ form.submit() }}
+</form>
+```
