@@ -4,9 +4,12 @@
     margin: 0 3px 0 3px;
 }
 
+
 body {
     color: #5d5d5d;
     font-family: 'League Gothic', sans-serif;
+    /* making the parent of the Like button relative position */
+    position: relative;
 
 }
 
@@ -69,6 +72,8 @@ h2 {
 
 .post-header {
     margin-bottom: 40px;
+    position: relative;
+
 }
 
 h3 {
@@ -242,4 +247,60 @@ button:hover {
 .container {
     width: 1750px;
     margin: 0 auto;
+}
+
+/* NOTES ON: TYPE OF BOXES INLINE VS BLOCK*/
+/*
+nav a:link {
+    background-color: orange;
+    margin: 10px;
+    padding: 5px;
+
+ */
+/* by making the element display block it will take up all horizontal space of the parent element*/
+/*
+    display: block;
+
+}
+*/
+
+nav a:link {
+    display: inline-block;
+    margin-top: 5px;
+    margin-left: 35px;
+    margin-right: 5px;
+}
+
+nav a:link:first-child {
+    margin-left: 0;
+
+}
+
+#like-button {
+    font-size: 25px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+    padding: 15px;
+    margin: 30px;
+}
+
+/* PSEUDO ELEMENTS */
+h1::first-letter {
+    font-style: normal;
+    margin-right: 5px;
+}
+
+/* Selects the first line of a <p> */
+
+/*
+p::first-line {
+    color: red;
+}
+
+ */
+/* Selecting paragraphs that come after h3*/
+h3 + p {
+    color: red;
 }
