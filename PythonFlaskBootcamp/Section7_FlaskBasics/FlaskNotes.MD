@@ -510,3 +510,171 @@ After defining the simple backend using wtforms class we define our index.html p
     {{ form.submit() }}
 </form>
 ```
+
+## Form Fields
+
+* Every possible HTML form field has a corresponding wtforms class you can import.
+* wtforms also has validators you can easily insert.
+* Validators can perform checks on the form data, such as requiring a field to be filled.
+
+We begin with a new import statement:
+
+```python
+from flask import Flask, render_template, session, redirect, url_for
+from flask_wtf import FlaskForm
+from wtforms import StringField, BooleanField, DateTimeField, RadioField, SelectField, TextAreaField, SubmitField
+from wtforms.validators import DataRequired
+```
+
+Next we define our app and secret key configuration:
+
+```python
+# Step 1: define app
+app = Flask(__name__)
+
+# Step 2: configure secret key
+app.config['SECRET_KEY'] = 'mysecretkey123'
+```
+
+Then our class that inherits from FlaskForm: <br>
+In this class, we use the wtforms fields that were imported to define the attributes.
+
+```python
+# Step 3: Define Form class with attributes; built with wtforms
+class InfoForm(FlaskForm):
+    # for validators we create an instance in the validators list
+    department = StringField('What department are you in? ', validators=[DataRequired()])
+    high_access = BooleanField('Do you have level 5 or above access? ')
+    # choices in RadioField are a list of Tuple pairs consisting of (value, label)
+    access_level = RadioField('Please select your access level: ',
+                              choices=[
+                                  ('access_5', '5'),
+                                  ('access_6', '6'),
+                                  ('access_7', '7')
+                              ])
+    information = SelectField('Please select the information you wish to see: ',
+                              choices=[
+                                  ('payroll', 'Payroll'),
+                                  ('timecard', 'Timecard'),
+                                  ('salary', 'Salary'),
+                                  ('master_info', 'Master Info')
+                              ])
+
+    reason = TextAreaField()
+    submit = SubmitField('Submit')
+```
+
+Next we define our view functions: <br>
+Here we introduce the nested return statements.
+
+1. `return redirect(url_for('thank_you'))` will redirect the user to the render_template the view function
+   'thank_you' returns. <strong> ONLY IF </strong> the user correctly fills in the form; correctly means all validators
+   are True.
+2. The second return statement `return render_template('Flask_Forms_One_Index.html'), form=form)` is the return
+   statement for the view function so, it's what the user will see.
+
+```python
+# Step 4: Define view functions
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    form = InfoForm()
+
+    # Only upon submission of form will this be True and user will be redirected to html 'thank_you' renders
+    # validate_on_submit will check validators from attribute's; if one is False, user will not be redirected.
+    if form.validate_on_submit():
+        '''
+        In order to pass the data to another template automatically we will use the session object from Flask import.
+        Unlike a cookie, session data is stored on the server and a session is just a time interval from when client 
+        logs into server and then logs out of it. So the data is stored in a temporary directory on the server. 
+        
+        This is essentially a way to temporarily hold information about a session that lasted x amount of time for a
+        specific user and report it back. 
+        
+        '''
+        # grab session object and treat it as dictionary by building it using dict_value = value from tuple
+        session['department'] = form.department.data  # this will report back the value from the tuple pairs
+        session['high_access'] = form.high_access.data
+        session['access_level'] = form.access_level.data
+        session['information'] = form.information.data
+        session['reason'] = form.reason.data
+
+        # once the session dictionary is defined use redirect and url_for to redirect to html page on submit
+        return redirect(url_for('thankyou'))
+    # rendering the Flask_Forms_One_Index.html; this is the page rendered when view function runs
+    return render_template('Flask_Forms_One_Index.html', form=form)
+
+
+@app.route('/thankyou', methods=['GET', 'POST'])
+def thankyou():
+    return render_template('Flask_Forms_One_ThankYou.html')
+```
+
+Lastly, we include our run statement:
+
+```python
+if __name__ == "__main__":
+    app.run(debug=True)
+```
+
+Next we move on to the front-end. <br>
+Index template for this project is shown below.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask Forms</title>
+</head>
+<body>
+<h1> Welcome to the info access bar: </h1>
+<form method="post">
+    {{form.hidden_tag()}}
+    {{form.department.label}} {{form.department()}}
+    <br>
+    {{form.high_access.label}} {{form.high_access()}}
+    <br>
+    {{form.access_level.label}} {{form.access_level()}}
+    <br>
+    {{form.information.label}} {{form.information()}}
+    <br>
+    Please state your reason?
+    <br>
+    {{form.reason()}}
+    <br>
+    {{form.submit.label}} {{form.submit()}}
+
+</form>
+</body>
+</html>
+```
+
+Thank you page is as follows:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask Forms</title>
+</head>
+<body>
+<h1> Thank you for providing your information. Processing the following....</h1>
+<ul>
+    <li>Department: {{session['department']}}</li>
+    <li> High Access: {{session['high_access']}}</li>
+    <li> Access Level: {{session['access_level']}}</li>
+    <li> Information Requested: {{session['information']}}</li>
+    <li> Reason: {{session['reason']}}</li>
+</ul>
+
+</body>
+</html>
+```
+
+## How to flash a message to a user
+
+* Often, we want to send a message to the user that we don't need to save or fix permanently to the template page.
+* We can <strong> flash </strong> a message to the user that can then be closed.
+
+To do this, you import a flash function from Flask and then connect to some Bootstrap code. 

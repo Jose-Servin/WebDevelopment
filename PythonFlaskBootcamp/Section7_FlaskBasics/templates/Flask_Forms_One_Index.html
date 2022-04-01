@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask Forms</title>
+</head>
+<body>
+<h1> Welcome to the info access bar: </h1>
+<form method="post">
+    {{form.hidden_tag()}}
+    {{form.department.label}} {{form.department()}}
+    <br>
+    {{form.high_access.label}} {{form.high_access()}}
+    <br>
+    {{form.access_level.label}} {{form.access_level()}}
+    <br>
+    {{form.information.label}} {{form.information()}}
+    <br>
+    Please state your reason?
+    <br>
+    {{form.reason()}}
+    <br>
+    {{form.submit.label}} {{form.submit()}}
+
+</form>
+</body>
+</html>
