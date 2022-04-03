@@ -8,7 +8,8 @@ app.config['SECRET_KEY'] = 'mysecretkey123'
 
 
 class SimpleForm(FlaskForm):
-    submit = SubmitField('Click Me')
+    submit = SubmitField('Submit')
+    department = StringField('Enter your department: ')
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -16,7 +17,8 @@ def index():
     form = SimpleForm()
 
     if form.validate_on_submit():
-        flash('You just clicked the button! ')
+        session['department'] = form.department.data
+        flash(f"Your department is {session['department']}")
 
         return redirect(url_for('index'))
 
