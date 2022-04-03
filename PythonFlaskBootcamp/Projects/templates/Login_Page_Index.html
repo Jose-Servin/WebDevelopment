@@ -2,13 +2,126 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Math 152</title>
+
+
 </head>
+
 <body>
-<!-- Inherit base page components -->
 
-<!-- Email/ Password and Submit with password requirements -->
-<!-- Flask errors with password requirements  -->
+<!-- Header with Navbar and article information (when you click on article, flash message to log in) -->
+<div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                <use xlink:href="#bootstrap"/>
+            </svg>
+        </a>
+        
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Course Syllabus </a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Homework Assignments </a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Past Exams</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Help Sessions </a></li>
+        </ul>
+        
+        <div class="col-md-3 text-end">
+            <button type="button" class="btn  btn-light btn-outline-primary me-2 btn-large">
+                <a href="{{url_for('login')}} "> Login </a>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Main Jumbotron Container with Class Information -->
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm p-3 mb-5 bg-body rounded">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">MATH 152 - Engineering Calculus II</h1>
+            <h3 class="display-5">Instructor: Baker Servin</h3>
+            <h3 class="display-6">Spring 2018</h3>
+            <p class="col-md-8 fs-4"> Welcome to Math 152! Here you can find helpful links and course information. </p>
+            <p>
+                This course focuses on Engineering Mathematics II.
+                Differentiation and integration techniques and their applications (area, volumes, work), improper
+                integrals, approximate integration,
+                analytic geometry, vectors, infinite series, power series, Taylor series, computer algebra. </p>
+        </div>
+    </div>
+    <div class="row align-items-md-stretch ">
+        <div class="col-md-6 ">
+            <div class="p-5 text-white bg-dark rounded-3 ">
+                <h2>TA Contact Information: </h2>
+                <ul>
+                    <li>
+                        Section 528, 535 - Camila Servin (camila@email.com)
+                    </li>
+                    <li>
+                        Section 550, 548 - Bella Servin (bella@email.com)
+                    </li>
+                    <li>
+                        Section 554, 516 - Bob Servin (bob@email.com)
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="p-5 text-black bg-light rounded-3">
+                <h2>Important Deadlines: </h2>
+                <ul>
+                    <li>
+                        Midterm: 03/02/2020
+                    </li>
+                    <li>
+                        Q-Drop Deadline: 03/10/2020
+                    </li>
+                    <li>
+                        Final: 05/20/2020
+                    </li>
+                </ul>
+            </div>
+        </div>
+    
+    
+    </div>
+    <!-- Footer with information -->
+    {% block footer %}
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                <svg class="bi" width="30" height="24">
+                    <use xlink:href="#bootstrap"/>
+                </svg>
+            </a>
+            <span class="text-muted">&copy; 2021 Company, Inc</span>
+        </div>
+        
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li class="ms-3"><a class="text-muted" href="#">
+                <svg class="bi" width="24" height="24">
+                    <use xlink:href="#twitter"/>
+                </svg>
+            </a></li>
+            <li class="ms-3"><a class="text-muted" href="#">
+                <svg class="bi" width="24" height="24">
+                    <use xlink:href="#instagram"/>
+                </svg>
+            </a></li>
+            <li class="ms-3"><a class="text-muted" href="#">
+                <svg class="bi" width="24" height="24">
+                    <use xlink:href="#facebook"/>
+                </svg>
+            </a></li>
+        </ul>
+    </footer>
+    {% endblock %}
+</div>
 
+
+<!-- JS Bundle from Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 </body>
 </html>
