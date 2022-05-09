@@ -46,9 +46,16 @@ back to the top of the page.
 # Page Structure
 
 We can add structure to our page by including containers. We do this to group elements together in order to make css
-styling easier to implement and de-bug.
+styling easier to implement and de-bug. We also use page structure in order to follow sematic HTML design which is the
+usage of html elements with meaning. For example, we can use `div` to define a `nav` bar but by using `nav` we introduce
+meaning to this section of the page. Another major reason is search engine optimization which allows search engines to
+better understand the structure of our content. This is why when writing out HTML we should not simply think about how
+the elements look but rather focus on what the elements mean and stand for.
 
 * `<nav> </nav>` is used to represent a section of a page whose purpose is to provide navigation links.
 * `<header> </header>` defined introductory content, and it mostly found at the top part of webpages and/or other
   elements.
-* `<article> </article>` is used to contain information that can be distributed independently of the rest of the page. 
+* `<article> </article>` is used to contain information that can be distributed independently of the rest of the page.
+* `<footer> </footer>` typically contains author info, copyright, contact info etc.
+    * To create the copyright symbol we use `$copy;`.
+* `<div> </div>` is used to create a container that holds no meaning. 
