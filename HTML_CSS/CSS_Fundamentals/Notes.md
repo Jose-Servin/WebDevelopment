@@ -59,3 +59,116 @@ h1 {
 ```
 
 # Styling Text
+
+There are various text properties that can be applied to most HTML elements. Some of the most common ones are:
+
+```css
+h1 {
+    color: firebrick;
+    font-size: 26px;
+    font-family: 'League Gothic', sans-serif;
+    text-transform: uppercase;
+    font-style: normal;
+    text-align: center;
+}
+```
+
+It is important to note that for `<ol>` or `<ul>` elements, only the `<li>` elements can be styled. So, we style the
+list item not the actual list structure. We also see how inheritance works in CSS because all other elements inside
+our `<p>` elements get styled based on the rules set for those p elements.
+
+# Combining Selectors
+
+Before combining selectors we have:
+
+```css
+h1 {
+    color: firebrick;
+    font-size: 26px;
+    font-family: 'League Gothic', sans-serif;
+    text-transform: uppercase;
+    font-style: normal;
+    text-align: center;
+}
+
+h2 {
+    font-size: 40px;
+    font-family: 'League Gothic', sans-serif;
+    font-style: normal;
+}
+
+h3 {
+    font-size: 30px;
+    font-family: 'League Gothic', sans-serif;
+}
+
+
+h4 {
+    font-size: 20px;
+    font-family: 'League Gothic', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+p {
+    font-size: 22px;
+    font-family: 'League Gothic', sans-serif;
+    line-height: 1.5;
+    color: dimgrey;
+}
+
+li {
+    font-family: 'League Gothic', sans-serif;
+    font-size: 20px;
+}
+```
+
+Which shows how some properties are repeated. We can eliminate this redundancy and implement best practices by combining
+selectors using `list selectors`:
+
+```css
+h1, h2, h3, h4, p, li {
+    font-family: 'League Gothic', sans-serif;
+}
+```
+
+Now, any change in the font-family will be implemented on all elements, and we won't have to change them one by one.
+
+## Descendent Selector
+
+To change the `<p>` text of the `<footer>` we use descendent selectors to specify we would like to change the p text of
+the footer only.
+
+```css
+footer p {
+    font-size: 12px;
+}
+```
+
+Here we are saying "select the child p element of the footer element." It is important to note that descendent selectors
+can present issues when the same parent-child relationships exists in our HTML doc.
+
+```html
+
+<div>
+    <header>
+        <p> What we want to style </p>
+    </header>
+</div>
+<article>
+    <header>
+        <p> We do not want to style this </p>
+    </header>
+</article>
+```
+
+In this example, if we use descendent selector we would use `header p` but this would select both `p` tags in our doc.
+To fix this, we use nested-descendent selectors:
+
+```css
+article header p {
+    color: red;
+}
+```
+
+# Class and ID Selectors

@@ -1,3 +1,45 @@
+h1, h2, h3, h4, p, li {
+    font-family: 'League Gothic', sans-serif;
+}
+
 h1 {
     color: firebrick;
+    font-size: 26px;
+    text-transform: uppercase;
+    font-style: normal;
+    text-align: center;
+}
+
+h2 {
+    font-size: 40px;
+    font-style: normal;
+}
+
+h3 {
+    font-size: 30px;
+}
+
+
+h4 {
+    font-size: 20px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+p {
+    font-size: 22px;
+    line-height: 1.5;
+    color: dimgrey;
+}
+
+li {
+    font-size: 20px;
+}
+
+footer p {
+    font-size: 14px;
+}
+
+article header p {
+    color: red;
 }
