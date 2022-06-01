@@ -1,3 +1,5 @@
+/*  Comments in CSS */
+
 h1, h2, h3, h4, p, li {
     font-family: 'League Gothic', sans-serif;
 }
@@ -36,10 +38,29 @@ li {
     font-size: 20px;
 }
 
+/*
 footer p {
     font-size: 14px;
 }
+*/
 
-article header p {
+#copyright {
+    font-size: 14px;
+
+}
+
+#author {
     color: red;
+    font-style: italic;
+    font-size: 18px;
+}
+
+.author-name {
+    color: saddlebrown;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.related {
+    list-style-type: none;
 }

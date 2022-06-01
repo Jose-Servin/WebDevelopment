@@ -172,3 +172,54 @@ article header p {
 ```
 
 # Class and ID Selectors
+
+Class and ID selectors are a better option vs descendent selectors because it removes the HTML encoding in our css file.
+In order to implement class and ID selectors we must first declare them in our HTML doc:
+
+```html
+<p id="author">
+    Posted by <strong> Laura Jones</strong> on Monday. June 21st 2017
+</p>
+```
+
+and then select them using the (hash) `#` in our css file:
+
+```css
+#author {
+    color: red;
+}
+```
+
+## ID vs Classes
+
+The big difference between ID's and Classes is that we are not allowed to repeat ID names. We can have multiple HTML
+elements with the same class, such as the "related post" author names (CSS convention is to use dashes -):
+
+```html
+<p class="author-name"> By Jonas Schmedtmann </p>
+```
+
+To style this, we use the class selector in css `.`:
+
+```css
+.author-name {
+    color: saddlebrown;
+}
+```
+
+It is noted that by default, we will stick mostly to using classes in order to prepare for future changes and limit
+potential bugs.
+
+# Working with Colors
+
+Colors in CSS can be specified using two ways.
+
+1. RGB Notation <br>
+   Defined using the `rgb()`function. Can take a 4th value specifying the "alpha" (0.0 - 1.0).
+2. Hexadecimal Notation <br>
+   Written using `#00ffff`
+
+## Shades of Grey
+
+Grey colors are created when all three values in either RGB function or Hex pairs are the same. `rgb(183, 183, 183)`
+and `#b7b7b7` are the same color. 
