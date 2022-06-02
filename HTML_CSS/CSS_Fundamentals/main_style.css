@@ -5,7 +5,7 @@ h1, h2, h3, h4, p, li {
 }
 
 h1 {
-    color: firebrick;
+    color: #500000;
     font-size: 26px;
     text-transform: uppercase;
     font-style: normal;
@@ -35,7 +35,12 @@ p {
 }
 
 li {
-    font-size: 20px;
+    font-size: 18px;
+}
+
+aside {
+    border: 5px #003C71 solid;
+    background-color: #f7f7f7;
 }
 
 /*
@@ -50,17 +55,49 @@ footer p {
 }
 
 #author {
-    color: red;
+    color: #003C71;
     font-style: italic;
     font-size: 18px;
 }
 
 .author-name {
-    color: saddlebrown;
+    color: #5B6236;
     font-size: 18px;
     font-weight: bold;
 }
 
 .related {
     list-style-type: none;
+}
+
+.navigation-links {
+    text-align: center;
+}
+
+.main-header {
+    background-color: #f7f7f7;
+}
+
+/*
+.first-li {
+   font-weight: bold;
+}
+ */
+
+/*  Using Pseudo-Classes to bold first list element */
+li:first-child {
+    font-weight: bold;
+}
+
+/*  Using Pseudo-Classes to italic last list element */
+li:last-child {
+    font-style: italic;
+}
+
+li:nth-child(2) {
+    color: darkred;
+}
+
+article p:last-child {
+    color: red;
 }

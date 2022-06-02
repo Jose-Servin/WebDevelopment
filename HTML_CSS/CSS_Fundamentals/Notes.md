@@ -222,4 +222,48 @@ Colors in CSS can be specified using two ways.
 ## Shades of Grey
 
 Grey colors are created when all three values in either RGB function or Hex pairs are the same. `rgb(183, 183, 183)`
-and `#b7b7b7` are the same color. 
+and `#b7b7b7` are the same color.
+
+# Pseudo-Classes
+
+By definition, a pseudo-class is used to define a special state of an element. They are implemented using a colon
+`:`. One way we can bold the first element on a list is:
+
+```css
+.first-li {
+    font-weight: bold;
+}
+```
+
+But we can use pseudo-classes to select the first child element as shown:
+
+```css
+li:first-child {
+    font-weight: bold;
+}
+```
+
+This wil select ALL list elements that are the first child of their parent element which can be either `ol` or `ul`. A
+powerful function to use is `li:nth-child(x)`. Here we can specify integer location or keywords such as `odd` or
+`even`. One thing to remember is that pseudo classes, when specified, select the first child of the parent element, so
+it must be a direct child-parent relationship AND must be first or last. We cannot style the first `p` inside of
+`article` because the `p` is not a direct child of `article`, it is a child of the `header`.
+
+First we make sure the last-child of the `article` element is a `p` element.
+
+```html
+<p> Hopefully you learned something new here. See you next time! </p>
+<!--  <button> Email Me</button> -->
+</article>
+```
+
+Now we can use the pseduo-class `article p:last-child` to style that last child `p` element.
+
+```css
+article p:last-child {
+    color: red;
+}
+```
+
+# Styling Hyperlinks
+
