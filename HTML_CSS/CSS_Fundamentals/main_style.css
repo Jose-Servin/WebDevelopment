@@ -49,10 +49,6 @@ footer p {
 }
 */
 
-#copyright {
-    font-size: 14px;
-
-}
 
 #author {
     color: #003C71;
@@ -118,4 +114,22 @@ a:hover {
 
 a:active {
     background-color: black;
+}
+
+#copyright {
+    font-size: 14px;
+    color: red;
+
+}
+
+.copyright {
+    color: orange;
+}
+
+.text {
+    color: brown;
+}
+
+footer p {
+    color: blue !important;
 }

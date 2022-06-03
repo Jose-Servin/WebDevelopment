@@ -291,7 +291,101 @@ The order of these link pseudo classes matter and must always follow:
 3. Hover
 4. Active
 
-# CSS Theory #1: Conflicts Between Selectors 
+# CSS Theory #1: Conflicts Between Selectors
 
+What happens when we have multiple selectors selecting the same element? Which CSS rule gets applied? <br>
 
+<strong>All rules apply </strong> <br>
 
+However, in the presence of conflicting declarations, there is a level of priority.
+
+From highest to lowest priority we have:
+
+1. Declarations marked `! important`
+2. Inline style (style attribute in HTML)
+3. ID (#) selector
+4. Class (.) or pseudo class (:) selector
+5. Element selector
+6. Universal selector (*)
+
+As an example, we added the following classes to the `p` tag of our `footer`. So now this element has both the class
+`copyright` and `text`.
+
+```html
+<p id="copyright" class="copyright text">
+    Copyright &copy; 2022 by Servin
+</p>
+```
+
+We introduce conflicts in our selectors by declaring the following rules:
+
+```css
+/*  This selects the ID */
+#copyright {
+    font-size: 14px;
+    color: red;
+
+}
+
+/*  This selects the class "copyright" */
+.copyright {
+    color: orange;
+}
+
+/*  This selects the class "text" */
+.text {
+    color: brown;
+}
+
+/*  This selects the p element that is inside the footer tag*/
+footer p {
+    color: blue;
+}
+```
+
+The `p` element will start as red. But if we remove the `#copyright` styling, the element will turn yellow because next
+in the priority is classes `copyright` and `text`. `text` gets applied since it comes last.
+
+```css
+.copyright {
+    color: orange;
+}
+
+.text {
+    color: brown;
+}
+```
+
+We can hack this by using the `!important` keyword in our CSS declaration. We use it on this element selector since it
+has the lowest priortiy in our example but by placing the `!important` keyword it is now being applied.
+
+```css
+footer p {
+    color: blue !important;
+}
+```
+
+To summarize,
+
+```css
+/*  Priority 1 */
+#copyright {
+    font-size: 14px;
+    color: red;
+
+}
+
+/*  Priority 3 */
+.copyright {
+    color: orange;
+}
+
+/*  Priority 2 */
+.text {
+    color: brown;
+}
+
+/*  Priority 4 */
+footer p {
+    color: blue;
+```
