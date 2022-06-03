@@ -1,6 +1,6 @@
 /*  Comments in CSS */
 
-h1, h2, h3, h4, p, li {
+body {
     font-family: 'League Gothic', sans-serif;
 }
 
@@ -29,18 +29,23 @@ h4 {
 }
 
 p {
-    font-size: 22px;
-    line-height: 1.5;
+    font-size: 18px;
+    /*line-height: 1.0; */
     color: dimgrey;
 }
 
 li {
     font-size: 18px;
+    line-height: 1.5;
 }
 
 aside {
     border: 5px #003C71 solid;
     background-color: #f7f7f7;
+}
+
+nav {
+    font-size: 18px;
 }
 
 /*
@@ -133,3 +138,4 @@ a:active {
 footer p {
     color: blue !important;
 }
+

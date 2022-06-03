@@ -388,4 +388,53 @@ To summarize,
 /*  Priority 4 */
 footer p {
     color: blue;
+}
 ```
+
+# CSS Theory #2: Inheritance and The Universal Selector
+
+In CSS inheritance is a mechanism by which some css rules get their values inherited from parent elements. A basic
+example would be to set styles to the `body` element which by definition, all other elements inside the body would
+inherit those same styles. Note that not all properties get inherited, <strong> mostly it is text properties.
+</strong> We must also remember the priority rules so any `body` property can easily be overwritten by any other type of
+rule declaration.
+
+```css
+/*  All elements in the body will inherit this font family property */
+body {
+    font-family: 'League Gothic', sans-serif;
+}
+
+/*  This rule is no longer needed */
+
+h1, h2, h3, h4, p, li {
+    font-family: 'League Gothic', sans-serif;
+}
+```
+
+Another example, you want to make the links inside the `nav` bar 18px.
+
+```html
+<!--Grouping links together inside a nav element -->
+<nav class="navigation-links">
+    <a href='other_page.html'> Other Page </a>
+    <a href='#'> Challenges </a>
+    <a href='#'> Flexbox</a>
+    <a href='#'> Grid</a>
+</nav>
+```
+
+If this is our `nav` element, we would use this simple css rule that by inheritance would make the links inside the nav
+18px <strong>UNLESS</strong> otherwise stated.
+
+```css
+nav {
+    font-size: 18px;
+}
+```
+
+## The Universal Selector
+
+The universal selector is used when we want certain properties to be applied to <strong> all </strong> elements. This is
+NOT inheritance. This is applying a certain property to all elements. For this to be inheritance, the universal selector
+had to be an HTML element, and it's not. 
