@@ -265,5 +265,33 @@ article p:last-child {
 }
 ```
 
-# Styling Hyperlinks
+# Styling Hyperlinks (LVHA)
+
+Styling hyperlinks best practice is to style a pseudo class in order to style different states of the link.
+
+1. Styling links requires us to find `a` tags that contain `href`.
+
+```css
+a:link {
+    color: red;
+    text-decoration: none;
+}
+```
+
+There are other pseudo classes for links such as:
+
+- `a:vistied`
+- `a:hover`
+- `a:active`
+
+The order of these link pseudo classes matter and must always follow:
+
+1. Link
+2. Visited
+3. Hover
+4. Active
+
+# CSS Theory #1: Conflicts Between Selectors 
+
+
 
