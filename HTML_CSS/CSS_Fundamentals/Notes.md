@@ -437,4 +437,75 @@ nav {
 
 The universal selector is used when we want certain properties to be applied to <strong> all </strong> elements. This is
 NOT inheritance. This is applying a certain property to all elements. For this to be inheritance, the universal selector
-had to be an HTML element, and it's not. 
+had to be an HTML element, and it's not.
+
+# CSS Theory #3: The CSS Box Model
+
+As a basic definition, the CSS box model defines how elements are displayed on a webpage and how they are sized. <br>
+
+Elements in the CSS Box Model are:
+
+* Content: Text, image, etc.
+* Border:  A line around the element, still inside the element.
+* Padding: Invisible space around the content, inside the element.
+* Margin: Space outside the element, between elements.
+* Fill Area: area that gets filled with background color or background image.
+
+<img src="img/box_model.png" alt="the css box model" height="300">
+
+## Element height and width calculations
+
+* Final Element Width = left border + left padding + width + right padding + right border
+* Final Element Height = top border + top padding + height + bottom padding + bottom border
+
+Note that margin is not a part of the final width and height calculations because this is the space between elements.
+
+# Using Margins and Paddings
+
+An element that has background color is a good candidate to introduce some padding to create space between the content
+and background. <br>
+
+The `padding` property has shorthand notation which follows `padding: top/bottom left,right`. <br>
+
+Margins can be introduced to list elements `li` to create space between them.
+
+```css
+li {
+    font-size: 18px;
+    /*line-height: 1.5; */
+    margin-bottom: 10px;
+}
+```
+
+However, this CSS rule will add margin to the last list item which is something we typically don't want. To work around
+this we use a pseudo-class:
+
+```css
+li:last-child {
+    margin-bottom: 0;
+}
+```
+
+## Global Reset
+
+In order to work with a clean slate and not have the default margin and paddings. We will do a "Global Reset" of both
+margins and paddings to ALL elements by using the universal selector.
+
+```css
+* {
+    margin: 0;
+    padding: 0;
+}
+```
+
+It is common to create vertical space using either `margin-top` or `margin-bottom`.
+
+## Collapsing Margins
+
+This occurs when we have two margins that occupy the same space, only one of them become visible on the page. The
+outcome is a single margin whose size is the largest of the individual margins.
+
+<img src="img/collapsing_margins.png" alt='diagram explaining collapsing margins' height=250>
+
+# Adding Dimensions (Height and Width)
+

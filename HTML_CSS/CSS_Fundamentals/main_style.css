@@ -1,5 +1,11 @@
 /*  Comments in CSS */
 
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: 'League Gothic', sans-serif;
 }
@@ -15,10 +21,12 @@ h1 {
 h2 {
     font-size: 40px;
     font-style: normal;
+    margin-bottom: 20px;
 }
 
 h3 {
     font-size: 30px;
+    margin: 20px 0;
 }
 
 
@@ -30,18 +38,36 @@ h4 {
 
 p {
     font-size: 18px;
-    /*line-height: 1.0; */
+    line-height: 1.0;
     color: dimgrey;
+    margin-bottom: 15px;
+
+}
+
+ul, ol {
+    margin-left: 35px;
+    margin-bottom: 20px;
 }
 
 li {
     font-size: 18px;
-    line-height: 1.5;
+    /*line-height: 1.5; */
+    margin-bottom: 10px;
+}
+
+li:last-child {
+    margin-bottom: 0;
 }
 
 aside {
-    border: 5px #003C71 solid;
+    border-top: 5px #003C71 solid;
+    border-bottom: 5px #003C71 solid;
     background-color: #f7f7f7;
+    padding: 35px 0;
+}
+
+article {
+    margin-bottom: 60px;
 }
 
 nav {
@@ -54,6 +80,9 @@ footer p {
 }
 */
 
+#like-button:hover {
+    background-color: cornflowerblue;
+}
 
 #author {
     color: #003C71;
@@ -73,10 +102,18 @@ footer p {
 
 .navigation-links {
     text-align: center;
+    margin-top: 15px;
 }
 
 .main-header {
     background-color: #f7f7f7;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    margin-bottom: 35px;
+}
+
+.post-header {
+    margin-bottom: 30px;
 }
 
 /*
