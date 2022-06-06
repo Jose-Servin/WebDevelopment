@@ -509,3 +509,56 @@ outcome is a single margin whose size is the largest of the individual margins.
 
 # Adding Dimensions (Height and Width)
 
+We can add height and width to elements using `height` and `width` styling rules in CSS. For images, it is important to
+note that we can also use `%` which will relate to the percentage of the parent element. For example, the code image we
+have has a parent element of `header` which is the full width of the page.
+
+```html
+
+<header class="post-header">
+    <h2> The Basic Language of the Web: HTML </h2>
+    <img src="img/laura-jones.jpg" alt="Author Laura Jones Image" class="author-image">
+    <p id="author">
+        Posted by <strong> Laura Jones</strong> on Monday. June 21st 2017
+    </p>
+    <img src="img/post-img.jpg" alt="html code on screen" class="code-image">
+    <br>
+    <button type="button" id="like-button"> ❤️ Like</button>
+
+</header>
+```
+
+So, if we specify a CSS rule for `.code-image` using `100%` width, the image will take up the full width of the webpage.
+This means, as we re-size the window the image will always be 100% of the parent element.
+
+```css
+.code-image {
+    height: auto;
+    width: 90%;
+}
+```
+
+# Centering our Page
+
+A neat trick to use when centering your page is to implement a `div` element as the parent of all other elements that
+exists on your page. So, we introduce `<div class='container'> </div>'` and set its width to   `1000px`. Now, all of its
+child element cannot have a width larger than the defined `1000px`. The logic here is "the child element can never be
+wider than the parent element."
+
+```css
+.container {
+    width: 1000px
+}
+```
+
+The next step is to add margins to both the left and right and setting them to `auto`. This ensures the left and right
+margins are always the same. Therefore, we get a nicely centered page.
+
+```css
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+```
+
+

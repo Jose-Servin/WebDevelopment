@@ -64,6 +64,7 @@ aside {
     border-bottom: 5px #003C71 solid;
     background-color: #f7f7f7;
     padding: 35px 0;
+    width: 500px
 }
 
 article {
@@ -79,6 +80,11 @@ footer p {
     font-size: 14px;
 }
 */
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
 
 #like-button:hover {
     background-color: cornflowerblue;
@@ -110,10 +116,23 @@ footer p {
     padding-bottom: 20px;
     padding-top: 20px;
     margin-bottom: 35px;
+    height: 80px;
+    border-top: 8px #500000 solid;
+
 }
 
 .post-header {
     margin-bottom: 30px;
+}
+
+.code-image {
+    height: auto;
+    width: 100%;
+}
+
+
+.author-image {
+    width: 50px;
 }
 
 /*
@@ -172,7 +191,22 @@ a:active {
     color: brown;
 }
 
+.email-button {
+    font-size: 22px;
+    margin-bottom: 15px;
+
+}
+
+.email-button:hover {
+    color: darkseagreen;
+}
+
+#like-button {
+    font-size: 22px;
+}
+
 footer p {
     color: blue !important;
 }
+
 
