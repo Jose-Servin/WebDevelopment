@@ -561,4 +561,19 @@ margins are always the same. Therefore, we get a nicely centered page.
 }
 ```
 
+# CSS Theory #4: Types of Boxes
 
+* Inline Boxes: Boxes that occupy only the space that they need. Only occupy the space of the element.
+    * cause no line-breaks after or before the element.
+    * custom box model application; height and width do not apply.
+    * padding and margins are only applied left and right. (horizontally)
+* Block Level Boxes / Block Level Elements: boxes that occupy all the space that they can and create line breaks. In
+  other words, they cannot be side by side.
+    * occupy 100% of parent's element width.
+    * stacked vertically by default.
+    * box model applies
+
+<img src="img/block_vs_inline_diagram.png" alt="diagram showing block vs inline elements" width="850">
+
+Most of the elements that we will use are going to be block-level elements. We can turn elements into block using CSS
+rule `display; block`. Similarly, we can turn elements into inline elements using `display: inline`.
