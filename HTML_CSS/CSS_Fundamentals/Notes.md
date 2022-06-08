@@ -577,3 +577,10 @@ margins are always the same. Therefore, we get a nicely centered page.
 
 Most of the elements that we will use are going to be block-level elements. We can turn elements into block using CSS
 rule `display; block`. Similarly, we can turn elements into inline elements using `display: inline`.
+
+## Inline-Block elements
+
+Inline-block elements look like inline elements from the outside but behave like block-level elements on the inside.
+Therefore, they only ocupy the content space and create no line breaks. Also, these elements are able to apply the
+standard box model properties. It is common to create inline-block elements using `display: inline-block;`. It is
+important to note that by default images have inline-block properties. 

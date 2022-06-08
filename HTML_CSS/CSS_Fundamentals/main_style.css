@@ -109,6 +109,7 @@ footer p {
 .navigation-links {
     text-align: center;
     margin-top: 15px;
+
 }
 
 .main-header {
@@ -116,7 +117,7 @@ footer p {
     padding-bottom: 20px;
     padding-top: 20px;
     margin-bottom: 35px;
-    height: 80px;
+    /*height: 80px; */
     border-top: 8px #500000 solid;
 
 }
@@ -210,3 +211,27 @@ footer p {
 }
 
 
+/*  Turning all navigation links to Block elements */
+
+/*
+.navigation-links a:link {
+    display: block;
+    background-color: dodgerblue;
+    margin: 10px 0px;
+    padding: 10px
+}
+
+ */
+
+nav a:link {
+    display: inline-block;
+    margin: 5px 30px;
+}
+
+nav a:link:last-child {
+    margin-right: 0;
+}
+
+nav a:link:first-child {
+    margin-left: 0;
+}
