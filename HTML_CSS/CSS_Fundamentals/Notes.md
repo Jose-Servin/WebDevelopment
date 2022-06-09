@@ -626,3 +626,49 @@ body {
 }
 ```
 
+# Pseudo-Elements
+
+Pseudo-elements are elements that don't exist in the HTML, but we can still select and style them. For example "the
+first letter" or "first line" of a paragraph. In our page, if we want to make the book emoji not appear italic we will
+use the following rule. Note that pseudo-elements are selected using two colons `::`.
+
+```css
+h1::first-letter {
+    font-style: normal;
+}
+```
+
+The "adjacent sibling" is the element that comes right after the elements in question. For example, if we want to style
+the `p` elements that come after the `h3` elements we can use this "adjacent sibling" property.
+
+```css
+/* Adjacent sibling selector */
+h3 + p::first-letter {
+    color: orange;
+}
+```
+
+## After and Before Pseudo-Elements
+
+The "after" pseudo-element creates a pseudo-element that will automatically be the first child of the selected element.
+This element is NOT in our HTML doc but rather created by this CSS property:
+
+```css
+h2::after {
+    content: "TEST";
+    background-color: #606060;
+    color: whitesmoke;
+    padding: 5px 15px;
+    display: inline-block;
+    position: absolute;
+    top: -10px;
+    right: -25px;
+    font-size: 14px;
+
+}
+```
+
+We must remember to make the parent element of this pseudo-element `position:relative` because we are using absolute
+positioning. 
+
+

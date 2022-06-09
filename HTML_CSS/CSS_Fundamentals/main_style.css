@@ -23,6 +23,7 @@ h2 {
     font-size: 40px;
     font-style: normal;
     margin-bottom: 20px;
+    position: relative;
 }
 
 h3 {
@@ -240,4 +241,36 @@ nav a:link:last-child {
 
 nav a:link:first-child {
     margin-left: 0;
+}
+
+/* Pseudo element rules */
+
+h1::first-letter {
+    font-style: normal;
+}
+
+.first-p::first-letter {
+    font-family: cursive;
+    font-size: 65px;
+    margin-right: 3px;
+}
+
+/* Adjacent sibling selector */
+h3 + p::first-letter {
+    color: orange;
+}
+
+/* After pseudo-element */
+
+h2::after {
+    content: "TEST";
+    background-color: #606060;
+    color: whitesmoke;
+    padding: 5px 15px;
+    display: inline-block;
+    position: absolute;
+    top: -10px;
+    right: -25px;
+    font-size: 14px;
+
 }
