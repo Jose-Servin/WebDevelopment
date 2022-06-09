@@ -583,4 +583,46 @@ rule `display; block`. Similarly, we can turn elements into inline elements usin
 Inline-block elements look like inline elements from the outside but behave like block-level elements on the inside.
 Therefore, they only ocupy the content space and create no line breaks. Also, these elements are able to apply the
 standard box model properties. It is common to create inline-block elements using `display: inline-block;`. It is
-important to note that by default images have inline-block properties. 
+important to note that by default images have inline-block properties.
+
+# CSS Theory #5: Absolute Positioning
+
+Here we introduce two new concepts; Normal flow and Absolute Positioning.
+
+* Normal Flow
+    * represents the default positioning
+    * it is said the element is "in flow".
+    * Elements are simply laid out according to their order in the HTML code.
+    * CSS property = `position: relative`
+* Absolute Positioning
+    * is it said the element was removed from the normal flow; "out of flow".
+    * Has no impact on surrounding elements therefore might overlap them.
+    * We use `top`, `bottom`, `left` or `right` to offset the element from its relatively positioned container.
+    * CSS property = `position: absolute`
+
+For example, we added a Like Button to our HTML using `<button type="button" id="like-button"> ❤️ Like</button>`, with
+no regard to where it is placed since it will be positioned absolutely. Next, we define our CSS properties:
+
+```css
+#like-button {
+    font-size: 22px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+```
+
+This has caused our Like Button to appear at the very top left corner of our viewport. In order to have this element in
+absolute positioning BUT NOT relative to the viewport we have to specifically set the position of the relative parent
+element to relative. <br>
+
+For this example, the parent element of this Like button is the `body` so we set the body to relative position.
+
+```css
+body {
+    font-family: 'League Gothic', sans-serif;
+    position: relative;
+}
+```
+

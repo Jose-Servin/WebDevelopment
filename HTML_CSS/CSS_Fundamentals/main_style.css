@@ -8,6 +8,7 @@
 
 body {
     font-family: 'League Gothic', sans-serif;
+    position: relative;
 }
 
 h1 {
@@ -84,6 +85,7 @@ footer p {
 .container {
     width: 1200px;
     margin: 0 auto;
+    position: relative;
 }
 
 #like-button:hover {
@@ -204,6 +206,10 @@ a:active {
 
 #like-button {
     font-size: 22px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
 }
 
 footer p {
