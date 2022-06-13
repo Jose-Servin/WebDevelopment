@@ -8,6 +8,10 @@ body {
     font-family: 'League Gothic', sans-serif;
 }
 
+h2 {
+    position: relative;
+}
+
 h3 {
     font-size: 26px;
     font-weight: bold;
@@ -110,4 +114,52 @@ button:hover {
     cursor: pointer;
     border-top: 4px black solid;
 
+}
+
+h2::after {
+    content: 'Sale';
+    font-family: 'League Gothic', sans-serif;
+    background-color: red;
+    display: inline-block;
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    color: whitesmoke;
+    padding: 5px 5px;
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.box {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    margin-top: 15px;
+    margin-right: 10px;
+}
+
+.black {
+    background: black;
+}
+
+.blue {
+    background: blue;
+}
+
+.red {
+    background: red;
+}
+
+.yellow {
+    background: yellow;
+}
+
+.green {
+    background: green;
+}
+
+.brown {
+    background: saddlebrown;
 }
