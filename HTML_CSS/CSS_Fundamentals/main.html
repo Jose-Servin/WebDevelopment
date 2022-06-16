@@ -12,7 +12,7 @@
 <!-- creating container for content so we can center it-->
 <div class="container">
     <!-- Creating Header container -->
-    <header class="main-header">
+    <header class="main-header clearfix">
         <h1> 📘 The Code Magazine</h1>
         
         
@@ -23,6 +23,8 @@
             <a href='#'> Flexbox</a>
             <a href='#'> Grid</a>
         </nav>
+        
+        <!-- <div class="clear"></div> -->
     </header>
     
     <!--Using the article tag to self-contain page content -->
@@ -30,7 +32,7 @@
         <header class="post-header">
             <h2> The Basic Language of the Web: HTML </h2>
             <img src="img/laura-jones.jpg" alt="Author Laura Jones Image" class="author-image">
-            <p id="author">
+            <p id="author" class="main-author">
                 Posted by <strong> Laura Jones</strong> on Monday. June 21st 2017
             </p>
             <img src="img/post-img.jpg" alt="html code on screen" class="code-image">

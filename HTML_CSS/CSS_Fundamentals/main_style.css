@@ -274,3 +274,33 @@ h2::after {
     font-size: 14px;
 
 }
+
+/* Floats Notes */
+.author-image {
+    float: left;
+    margin-bottom: 15px;
+}
+
+.main-author {
+    margin-left: 20px;
+    margin-top: 15px;
+    float: left;
+}
+
+h1 {
+    float: left;
+}
+
+nav {
+    float: right;
+}
+
+.clear {
+    clear: both;
+}
+
+.clearfix::after {
+    clear: both;
+    display: block;
+    content: '';
+}
