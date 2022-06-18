@@ -189,6 +189,7 @@ a:active {
 
 .copyright {
     color: orange;
+    padding: 20px 0;
 }
 
 .text {
@@ -303,4 +304,21 @@ nav {
     clear: both;
     display: block;
     content: '';
+}
+
+/*  Building a Simple Float Layout */
+
+article {
+    width: 850px;
+    float: left;
+
+}
+
+aside {
+    width: 300px;
+    float: right;
+}
+
+footer {
+    clear: both;
 }
