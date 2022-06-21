@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 
@@ -31,7 +32,9 @@ p {
     font-size: 16px;
     color: #606060;
     font-weight: bold;
-    margin: 10px 10px;
+    float: right;
+    margin: 15px 10px;
+
 }
 
 .product-title {
@@ -42,11 +45,18 @@ p {
 }
 
 .keyboard-image {
-    margin: 0 20px;
+    margin-right: 40px;
+    float: left;
 }
 
 .item-price {
     margin: 10px 10px;
+    float: left
+}
+
+.product-description {
+    clear: both;
+    margin: 10px 0;
 }
 
 li {
@@ -75,9 +85,8 @@ a:active {
 
 .details-title {
     text-transform: uppercase;
-    margin-top: 20px;
-    margin-bottom: 0px;
-    margin-left: 10px;
+    margin: 15px 0;
+
 }
 
 .detail-list {
@@ -162,4 +171,15 @@ h2::after {
 
 .brown {
     background: saddlebrown;
+}
+
+.product-info {
+    float: left;
+}
+
+.product-price {
+    float: left;
+    width: 240px;
+    margin-right: 20px;
+
 }

@@ -786,7 +786,34 @@ following CSS properties to our pseudo-element:
 
 * With floated elements, text and inline elements will wrap around the floated element.
 * The parent container elements of floated elements will not adjust its height.
-* With absolute positioned elements, there is no impact on surrounding elements meaning there can be overlap. 
+* With absolute positioned elements, there is no impact on surrounding elements meaning there can be overlap.
 
+# Box-Sizing: Border Box
 
+We run into an issue when we add padding to the `aside` element because this extra padding causes the element to run out
+of width space. Therefore, it moves to the bottom of the page. The total width of this aside element is now 380 and
+since our total width cannot pass 1200, we get this issue. <br>
+
+How to fix this issue? leave behind the default behavior of the box model. In terms of adding up total width and total
+height. We apply this fix using the `box-sizing: border-box` CSS property. By convention, all web developers will add
+this property to all elements in order to bypass the default behavior of the box model. <br>
+
+Now, the final width and final height will simply be the values defined in the CSS property. Any padding added will
+simply subtract from the content area.
+
+```css
+aside {
+    width: 300px;
+    float: right;
+}
+
+aside {
+    border-top: 5px #003C71 solid;
+    border-bottom: 5px #003C71 solid;
+    background-color: #f7f7f7;
+    padding: 35px 40px;
+    box-sizing: border-box;
+
+}
+```
 

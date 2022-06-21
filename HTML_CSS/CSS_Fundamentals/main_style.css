@@ -4,6 +4,8 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+
 }
 
 body {
@@ -36,6 +38,7 @@ h4 {
     font-size: 20px;
     text-transform: uppercase;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 p {
@@ -65,8 +68,8 @@ aside {
     border-top: 5px #003C71 solid;
     border-bottom: 5px #003C71 solid;
     background-color: #f7f7f7;
-    padding: 35px 0;
-    width: 500px
+    padding: 20px 20px;
+
 }
 
 article {
@@ -107,6 +110,7 @@ footer p {
 
 .related {
     list-style-type: none;
+    margin-left: 0;
 }
 
 .navigation-links {
