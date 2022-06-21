@@ -817,3 +817,85 @@ aside {
 }
 ```
 
+# Introduction to Flexbox
+
+To get started using Flexbox, all we have to do is place the `display:flex` property on a container element. As a
+reminder, a container element is an element that has child elements, ex `div`. <br>
+
+The children elements of this parent container (flex container) are referred to as the flex items. By default, the flex
+items only take us the space needed for its text content. Space not taken up can be seen by placing a colored background
+to the parent container to visualize how much space is left. So, to summarize, horizontally the child elements only take
+up the space needed, but vertically they take up the full height of the parent element or any max child height defined.
+
+<img src="img/flexbox-whitespace.png" alt="white space in flex box">
+
+# Flexbox Common Usage
+
+## Vertical Centering
+
+A common usage for flex box is its ability to easily vertical center items. For this we use the `align-items:
+center` property.
+
+<img src="img/vertical-align.png" alt="vertically aligned items using flexbox">
+
+
+Now, these items are vertically aligned except for the `CSS` block since we have a defined height. We can also use
+`flex-start` and `flex-end` properties to place the items on the top and bottom respectively. The default behavior
+of `align-items` is `stretch` which means "take up the full height of the parent container/ tallest element." <br>
+
+To summarize:
+
+* `align-items:stretch` is the default behavior.
+* `align-items:start` places the items at the top of the parent container.
+* `align-items:center` places the items at the vertical center of the parent container.
+* `align-items:bottom` places the items at the bottom of the parent container.
+
+## Horizontal Centering
+
+We can also horizontally center/move the items around the parent container using the `justify-content:` property. A neat
+property is `justify-content: space-between` , which will take the elements and evenly space them out horizontally;
+breaking up and extra space and creating margin.
+
+<img src="img/space-between.png" alt="showing space-between flexbox property">
+
+# Flexbox Overview
+
+<dl>
+    <dt> Flexbox </dt>
+<dd> A set of related CSS properties for building 1-dimensional layouts. </dd>
+</dl>
+
+
+The main idea for the creation of flexbox was the easy implementation of automatically dividing up the empty space in a
+parent container among its child elements. Flexbox also makes it easy to align items to one another, that is child vs
+child alignment inside a parent container. (Horizontal and Vertical Centering)
+
+# Flexbox Terminology
+
+<dl>
+    <dt> Flex Container </dt>
+<dd> The element on which we use flexbox. </dd>
+<dd> Created by defining the display: flex; property. </dd>
+
+
+<dt> Flex Items </dt>
+<dd> The direct children of the Flex Container element. </dd>
+
+<dt> Main Axis </dt>
+<dd> Represents the horizontal axis. </dd>
+
+
+<dt> Cross Axis </dt>
+<dd> Represents the vertical axis. </dd>
+
+
+</dl>
+
+# Common Flex Container and Flex Items Properties
+
+<img src="img/common-flexbox.png">
+
+# Spacing and Aligning Flex Items
+
+
+
