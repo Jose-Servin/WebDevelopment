@@ -106,7 +106,6 @@ footer p {
 .author-name {
     color: #5B6236;
     font-size: 18px;
-    font-weight: bold;
     margin-bottom: 0;
     font-weight: normal;
     font-style: italic;
@@ -348,18 +347,44 @@ footer {
 }
 
 .main-author {
-    margin: 0 0;
+    margin: 0 10px;
 }
 
-.related {
+.related-post {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 25px;
+    gap: 15px;
+    margin-bottom: 30px;
 
 }
 
-.related-link {
-    display: block;
+
+.related-author {
+    margin: 0 0;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.related-link:link {
+    font-weight: normal;
+    font-style: normal;
     margin: 10px 0;
+    display: block;
 }
+
+
+.main-body-container {
+    display: flex;
+    gap: 75px;
+    align-items: flex-start;
+}
+
+aside {
+    align-self: flex-start;
+    flex: 0 0 300px;
+}
+
+article {
+    flex: 1;
+}
+

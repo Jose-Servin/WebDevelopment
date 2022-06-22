@@ -997,3 +997,69 @@ definitions. The order of properties defined is:
 1. Flex-grow
 2. Flex-shrink
 3. Flex-auto
+
+# Styling "Related Post" Section Notes
+
+To style this section, we first defined our parent container to be the `li` elements. Here I made the mistake of
+selecting the `ul` elements, but we must remember that the `li` element is what holds the info, not the actual list.
+
+```html
+
+<ul class="related">
+    <li class="related-post">
+        <img src="img/related-1.jpg" alt="man coding on laptop" width="100">
+        <div class="related-auth-title">
+            <a href="main.html" class="related-link"> How to Learn Web Development </a>
+            <p class="related-author"> By Jonas Schmedtmann </p>
+        </div>
+    </li>
+</ul>
+```
+
+Next, we added the flex properties to our `li` elements:
+
+```css
+.related-post {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+
+}
+```
+
+Here we discovered we needed to add the extra div element between the `a` and `p` tags. This is because we want these to
+elements to be grouped together and not side by side.
+
+# How to move whole sections
+
+We use the same approach.
+
+1. define parent element or create one if needed.
+2. Move child elements to desired positions
+
+```css
+.main-body-container {
+    display: flex;
+    gap: 75px
+}
+
+aside {
+    align-self: flex-start;
+    flex: 0 0 300px;
+}
+
+article {
+    flex: 0 0 825px;
+}
+```
+
+Something neat we can do is use the power of flexbox to let it automatically adjust our elements to their optimal width.
+So, if we define our `aside` element needs to be 300px and our `gap` is 75px; our `article` element needs to be 825px,
+and we can shorthand this by defining:
+
+```css
+article {
+    flex: 1;
+}
+```
