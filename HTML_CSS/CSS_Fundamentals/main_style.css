@@ -19,6 +19,7 @@ h1 {
     text-transform: uppercase;
     font-style: normal;
     text-align: center;
+    margin-left: 15px;
 }
 
 h2 {
@@ -106,6 +107,9 @@ footer p {
     color: #5B6236;
     font-size: 18px;
     font-weight: bold;
+    margin-bottom: 0;
+    font-weight: normal;
+    font-style: italic;
 }
 
 .related {
@@ -115,8 +119,7 @@ footer p {
 
 .navigation-links {
     text-align: center;
-    margin-top: 15px;
-
+    margin-right: 15px;
 }
 
 .main-header {
@@ -170,6 +173,7 @@ article p:last-child {
 a:link {
     color: purple;
     text-decoration: none;
+    margin-right: 25px;
 }
 
 a:visited {
@@ -237,7 +241,7 @@ footer p {
 
 nav a:link {
     display: inline-block;
-    margin: 5px 30px;
+
 }
 
 nav a:link:last-child {
@@ -280,7 +284,8 @@ h2::after {
 
 }
 
-/* Floats Notes */
+/* DISABLE FLOATS
+
 .author-image {
     float: left;
     margin-bottom: 15px;
@@ -310,7 +315,6 @@ nav {
     content: '';
 }
 
-/*  Building a Simple Float Layout */
 
 article {
     width: 850px;
@@ -325,4 +329,37 @@ aside {
 
 footer {
     clear: both;
+}
+
+ */
+
+/* ADDING FLEX BOX */
+
+.main-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.author-and-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.main-author {
+    margin: 0 0;
+}
+
+.related {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+
+}
+
+.related-link {
+    display: block;
+    margin: 10px 0;
 }
