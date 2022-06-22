@@ -897,5 +897,103 @@ child alignment inside a parent container. (Horizontal and Vertical Centering)
 
 # Spacing and Aligning Flex Items
 
+By definition, `align-items:stretch` will vertically align our child elements inside the parent element. However, we
+might want to override this behavior and can do so using the `align-self` property.
 
+## Ordering Items
 
+Items by default have the property `order:0` which means they all share the same order. This does not match the physical
+location of the item but rather the "logical order." So, we can arrange our items by defining an order less than 0 which
+will in turn define order of location. The following property will place the "learn" text first.
+
+```css
+.el--8 {
+    order: -1
+}
+```
+
+The same logic applies for items given an `order` greater than 0. So if we want to move the text "CSS" to the right most
+position, we give it an `order:1;` property. <br>
+
+## Adding space between items
+
+We can still add margin like normal however, the items might overflow the parent element. This is why, this route is not
+recommended but rather we should focus on keeping all spacing and alignment properties in the flex box container. <br>
+
+`gap` is the property we should use when adding spacing between items.
+
+```css
+/* NOT RECOMMENDED */
+.el {
+    margin-right: 10px;
+}
+```
+
+Here we define the gap property inside the flex container and see that there is no margin being applied to the items so
+this also eliminated the need to reset the `margin-right:0;` for the last item. To summarize, this does not add margin
+but rather is a flex container property used to add spacing between items.
+
+```css
+.container {
+    /* STARTER */
+    font-family: sans-serif;
+    background-color: #ddd;
+    font-size: 40px;
+    margin: 40px;
+
+    /* FLEXBOX */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 40px;
+}
+```
+
+# The Flex Property
+
+The `flex` property is what we use to size items. If we want our items to have a certain width, we use the
+`flex-basis:` property.
+
+```css
+.el {
+    flex-basis: 100px;
+}
+```
+
+## Flex-basis and Flex-Shrink
+
+Here we are stating the width of items. For items that are larger than this width, no change will occur. For items that
+are not as wide, the element will expand to the defined width. In other words, this is treated mostly as a
+"suggested width" for the flex items. The browser in the end will implement on optimal width to the elements. <br>
+
+We can define a `flex-basis: 200px` but end up with elements having `width: 118px` because this is optimal for the
+browser. Flexbox does this because by default the `flex-shrink` property is set to `1`. We can change this and force the
+elements to be the desired width by defining `flex-shrink:0` property. We must be cautious of this because sometimes the
+flex items can overflow the flex container.
+
+## Flex-grow
+
+The `flex-grow` property determines if elements can grow as large as they can or not.
+
+```css
+.el {
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+```
+
+Here we have:
+
+* `flex-shrink:0` which means elements take up the width.
+* `flex-grow:1` means elements grow as large as the parent container.
+
+We can also increase the `flex` property values which will determine which element takes up most of the available space.
+For example, is we make `html` have `flex-grow:2`: it will take up more space than the other elements. "More space"
+for this example means double because 2 is double 1. <br>
+
+As a best practice we should always define `flex: 1` and not use the individual `flex` properties in stand-alone
+definitions. The order of properties defined is:
+
+1. Flex-grow
+2. Flex-shrink
+3. Flex-auto
