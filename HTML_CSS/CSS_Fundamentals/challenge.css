@@ -19,7 +19,7 @@ h3 {
 }
 
 p {
-    margin: 10px 10px;
+    /* margin: 10px 10px; */
 }
 
 .product {
@@ -32,8 +32,7 @@ p {
     font-size: 16px;
     color: #606060;
     font-weight: bold;
-    float: right;
-    margin: 15px 10px;
+    margin-bottom: 10px;
 
 }
 
@@ -41,22 +40,18 @@ p {
     text-align: center;
     background-color: #ececec;
     margin: 15px 0;
-    padding: 10px 0px
+    padding: 10px 0;
 }
 
 .keyboard-image {
-    margin-right: 40px;
-    float: left;
+    /* float: left; */
 }
 
 .item-price {
-    margin: 10px 10px;
-    float: left
+    margin-bottom: 10px;
 }
 
 .product-description {
-    clear: both;
-    margin: 10px 0;
 }
 
 li {
@@ -85,18 +80,20 @@ a:active {
 
 .details-title {
     text-transform: uppercase;
-    margin: 15px 0;
 
 }
 
 .detail-list {
     line-height: 1.5;
     list-style: square;
-
 }
 
 .detail-list li {
-    margin: 5px 25px;
+    margin: 15px 0;
+}
+
+.detail-list li:first-child {
+    margin-top: 10px;
 }
 
 .add-to-cart {
@@ -108,11 +105,12 @@ a:active {
     margin-top: 10px;
     width: 100%;
     height: auto;
-    padding: 10px 0px;
+    padding: 10px 0;
 }
 
-.item-link {
-    margin: 10px 10px;
+.item-link:link {
+    margin-top: 10px;
+    display: inline-block;
 }
 
 button:hover {
@@ -140,13 +138,18 @@ h2::after {
     text-transform: uppercase;
 }
 
+
+.color-box {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
 .box {
-    display: inline-block;
     width: 20px;
     height: 20px;
     border: 1px solid rgba(0, 0, 0, .2);
-    margin-top: 15px;
-    margin-right: 10px;
+
 }
 
 .black {
@@ -173,13 +176,30 @@ h2::after {
     background: saddlebrown;
 }
 
+.keyboard-image {
+    flex: 1;
+}
+
 .product-info {
-    float: left;
+    flex: 1;
 }
 
 .product-price {
-    float: left;
-    width: 240px;
-    margin-right: 20px;
+    flex: 1;
+
+
+}
+
+.main-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 45px;
+}
+
+.price-and-shipping-parent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
 }
