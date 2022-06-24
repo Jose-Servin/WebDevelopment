@@ -1063,3 +1063,129 @@ article {
     flex: 1;
 }
 ```
+
+# Introduction to CSS Grid
+
+CSS grid is currently the most modern, complete and easiest way to build layouts and bring structure to your webpage.
+<br>
+
+Similar to `flexbox` `css grid` is composed of grid containers and grid items. <br>
+
+To get started, we first identify our grid container and add the `display:grid;` property.
+
+```css
+.container--1 {
+    /* STARTER */
+    font-family: sans-serif;
+    background-color: #ddd;
+    font-size: 40px;
+    margin: 40px;
+    /* CSS GRID */
+    display: grid;
+}
+```
+
+Adding this property does nothing visually to our page because we have yet to define our `grid-template-columns`
+property which for each given value, a column will be made. For example, if we do `grid-template-columns: 33% 33% 33%`
+we will create 3 columns in our grid container.
+
+```css
+.container--1 {
+    /* STARTER */
+    font-family: sans-serif;
+    background-color: #ddd;
+    font-size: 40px;
+    margin: 40px;
+    /* CSS GRID */
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+}
+```
+
+The summarized behavior here can be thought of as "how many columns do I want in my grid container?" For items that do
+not fix a even column number i.e. `grid-template-columns % grid items != 0` then new rows get added. <br>
+
+We also note that just like flex-box, in CSS Grid, the elements will fill up the parent container in both height and
+width dimensions.
+
+<img src="img/css-grid-fillup.png" alt="css grid fill up parent container">
+
+We see that the first row is taller than the second but only because `.el--3` has a height of `150px` which means, any
+grid items in that row will have to also be 150px to accommodate for ths property definition. Otherwise, the height
+would only be the necessary height needed for this content. <br>
+
+We can size rows as well using the `grid-template-rows` property. For example, if we want the first row to be 300px and
+the second to be 100px we can use `grid-template-rows: 300px 100px`. <br>
+
+Lastly, to add spacing between grid items we cannot use `margin` in css grid but rather we must use the `gap` (once
+called `grid-gap`) property which will add the gap between the columns and rows. One neat thing about css grid is that
+we can also define `column-gap` and `row-gap` individually.
+
+<img src="img/row-and-column-gap-cssgrid.png" alt="showing row and column gap">
+
+With these 5 css grid properties, we can create similar layouts:
+
+```css
+.container--1 {
+    /* STARTER */
+    font-family: sans-serif;
+    background-color: #ddd;
+    font-size: 40px;
+    margin: 40px;
+    width: 630px;
+    /* CSS GRID */
+    display: grid;
+    grid-template-columns: 200px 200px 100px 100px;
+    grid-template-rows: 300px 100px;
+    column-gap: 10px;
+    row-gap: 30px
+}
+```
+
+# A CSS Grid Overview
+
+<dl>
+    <dt> CSS Grid </dt>
+<dd> A set of CSS properties for building 2-dimensional layouts. </dd>
+</dl>
+
+The main idea behind CSS grid is that we can divide a container element into rows and columns that can be filled with
+its child elements. Because of this, we can write less nested HTML and easier to read CSS. <br>
+
+Flexbox and CSS grid work hand in hand:
+
+* flexbox is great for 1-dimensional layouts
+* css grid is great for 2-dimensional layouts.
+
+# CSS Grid Terminology
+
+<dl>
+    <dt> Grid Container </dt>
+<dd> The element on which we use CSS Grid. </dd>
+<dd> Created by defining the display: grid; property. </dd>
+
+
+<dt> Grid Items </dt>
+<dd> The direct children of the Grid Container element. </dd>
+
+<dt> Row Axis </dt>
+<dd> Represents the horizontal axis. </dd>
+<dd> Direction cannot be changed. </dd>
+
+
+<dt> Column Axis </dt>
+<dd> Represents the vertical axis. </dd>
+<dd> Direction cannot be changed. </dd>
+
+</dl>
+
+
+<img src="img/css-grid-terms.png" alt="common css grid terms definitions">
+
+Grid Lines serve as location points, the intersection of these grid lines create containers in which we can place our
+items. These containers/areas created by the grid lines intersecting are called grid-cells.
+
+# Common CSS Grid properties
+
+<img src="img/common-grid-properties.png" alt="common grid properties defined">
+
