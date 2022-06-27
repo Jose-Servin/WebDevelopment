@@ -1300,9 +1300,50 @@ In some situations, we won't know how many expandable columns there are, or we d
 worrying about getting it right. For these situations, we use `grid-column: 1 / -1`.
 
 The same properties apply to `grid-row:`. We do have to be cautious because if we define a property that gets in the way
-of another element a new row or new column will be created to allow for space/the property implementation. 
+of another element a new row or new column will be created to allow for space/the property implementation.
 
+# Aligning Grid Items and Tracks
 
+Using CSS grid, we can align both tracks inside the grid container and grid items inside the tracks. <br>
 
+## Align Tracks
+
+To align grid tracks we must first have the grid smaller than the grid container. The two properties we can use here
+are:
+
+1. `justify-content` (horizontal alignment) FOR ROWS
+2. `align-content` (vertical alignment) FOR COLUMNS
+
+Each track can be though of as a unit of column or row. For our example, we can `space-evenly` the content to get evenly
+spaced out columns tracks. To summarize here, rows are aligned using `justify-content` and columns are aligned using the
+`align-content` property.
+
+## Align Items inside cells
+
+We can also align items inside cells by using `align-items` (COLUMNS) and `justify-items` (ROWS).
+
+```css
+/* ALIGNING CONTENT INSIDE CELLS */
+align-items: start
+
+;
+justify-items: center
+
+;
+```
+
+The cells are shown by using the dev tools.
+
+<img src="img/items-placement.png" alt="aligning items inside cells">
+
+In similar fashion, we can override these properties by using `justify-self` and `align-self`. This is a good way to
+center individual items in CSS grid.
+
+```css
+.el--3 {
+    justify-self: stretch;
+    align-self: stretch;
+}
+```
 
 
