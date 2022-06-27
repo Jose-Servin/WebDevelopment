@@ -1189,3 +1189,120 @@ items. These containers/areas created by the grid lines intersecting are called 
 
 <img src="img/common-grid-properties.png" alt="common grid properties defined">
 
+# Sizing Grid Columns and Rows
+
+We can implement flexable columns and rows using the `fr` (fraction/fractional) unit. For example, if we want out last
+items to fill up the remaining grid container space we can implement the following:
+
+```css
+.container--1 {
+    /* STARTER */
+    font-family: sans-serif;
+    background-color: darkgray;
+    font-size: 40px;
+    margin: 40px;
+    /* CSS GRID */
+    display: grid;
+    grid-template-columns: 200px 200px 100px 1fr;
+    grid-template-rows: 300px 100px;
+    column-gap: 10px;
+    row-gap: 30px
+}
+```
+
+In the grid container, we define the respective `grid-template-columns` value of however many columns we want to expand
+to be `1fr`. This is similar to setting `flex:1;` in flexbox. <br>
+
+We can achieve even spaced columns by defining the x_column_vals to be `grid-template-columns: 1fr 1fr 1fr 1fr;`.
+Proportionally, this gives all `grid-items` an equal amount of width allowed per the grid container. <br>
+
+When wanting to create proportional multiples (one column be double the other) we must follow these steps:
+
+1. add up the `fr` units
+2. define the columns based on the fraction representation via column_fr / total_fr
+
+The following rule can read like `grid-template-columns: 2fr 1fr 1fr 1fr;`
+
+* 5 total spaces available in the grid container
+* the first column takes up 2/5 and the rest take up 1/5.
+
+To have the first column take up half of all space available we use `grid-template-columns: 3fr 1fr 1fr 1fr;`.
+
+* column one has 3/6 fr's
+
+We must remember that this property is the relations of grid items and grid container and not grid items vs grid items.
+
+Here we can also use the `auto` argument `grid-template-columns:auto` which will make the grid container only take up
+the space its content needs.
+
+## repeat() function
+
+CSS grid introduced a `repeat()` function which lets us specify `how many columns, column size` as arguments. For
+example, we can re-write our `grid-template-columns` property using `grid-template-columns: repeat(4, 1fr);`.
+
+* 4 is the number of columns
+* 1fr is the column sizing property
+
+## Styling Rows
+
+Similarly to columns, we can use the `1fr` measurement by using the `grid-auto-rows: 1fr 1fr;` property. However, if we
+do not have a specified width the elements will only take up the height their content needs. <br>
+
+This can be summarized by "the height of each row track will be the height of the tallest grid item element." Here, we
+can define a `height` property for the grid container to add space that the grid items can now take up. <br>
+
+The combination of `grid-template-rows: 1fr auto` will make the first row 1 fractional unit and the second row will only
+take up the space needed for its content.
+
+# Placing and Spanning Grid Items
+
+We use the grid lines, which can be made visible by inspecting the page, to place grid items anywhere we want. <br>
+
+For example, if we want to place element 8 in column 2 row 1 we implement the following CSS rules:
+
+```css
+.el--8 {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+```
+
+Here we specify two things:
+
+1. What row/column the element starts at.
+2. What row/column the element ends at.
+
+We can also use shorthand if the next value is +1 from the starting row/column.
+
+```css
+.el--2 {
+    grid-column: 1;
+    grid-row: 2;
+}
+```
+
+In the same way, we can have an item span across multiple grid cells by defining the end that is not +1.
+
+```css
+.el--8 {
+    grid-column: 2/5;
+    grid-row: 1/2;
+}
+```
+
+<img src="img/grid-expanded-item.png" alt="grid item expanded out">
+
+We can also simply use the `span` property on a grid item to have it expand across a defined amount of rows or columns.
+For example, if we wanted to have item 7 to start at column 2 and expand out 3 columns we would
+use `grid-column: 2/ span 3;`. Which reads as "start in column 2 and expand out 3 columns including 2." <br>
+
+In some situations, we won't know how many expandable columns there are, or we don't want to think about calculating and
+worrying about getting it right. For these situations, we use `grid-column: 1 / -1`.
+
+The same properties apply to `grid-row:`. We do have to be cautious because if we define a property that gets in the way
+of another element a new row or new column will be created to allow for space/the property implementation. 
+
+
+
+
+
