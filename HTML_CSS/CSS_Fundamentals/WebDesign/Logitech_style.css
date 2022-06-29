@@ -13,25 +13,39 @@ h2 {
     margin-bottom: 24px;
 }
 
-p {
-    margin-bottom: 24px;
+.title-p {
+    font-weight: bold;
 }
 
 .main-body-container {
     width: 960px;
     margin: 0 auto;
+    border: 3px grey solid;
 }
 
 .main-header {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    align-items: center;
+    justify-content: space-between;
+    margin-top: 48px;
+    column-gap: 80px;
+}
+
+.main-header-el-2 {
+    border: 2px red solid;
+    display: inline-block;
 }
 
 .main-header-el-1 {
     display: grid;
     grid-template-rows: repeat(3, 1fr);
     background-color: lightblue;
+}
+
+.section-1-elements {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 80px;
 }
 
 .section2-container {
