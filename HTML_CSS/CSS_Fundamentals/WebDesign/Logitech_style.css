@@ -45,3 +45,12 @@ h2 {
 .testimonial-box {
     grid-column: 2/ -1;
 }
+
+.last-fig-item {
+    justify-self: end;
+}
+
+.keyboard-price {
+    display: flex;
+    justify-content: space-between;
+}
