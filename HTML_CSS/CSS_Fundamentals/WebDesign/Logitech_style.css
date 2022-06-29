@@ -13,6 +13,7 @@ body {
 .container {
     width: 960px;
     margin: 0 auto;
+    /*border: 3px blue solid;*/
 }
 
 header {
@@ -22,13 +23,34 @@ header {
     column-gap: 80px;
 }
 
+img {
+    justify-self: end;
+}
+
 header,
 section {
     margin-bottom: 48px;
 }
 
+h1 {
+    margin-bottom: 48px;
+}
+
 h2 {
     margin-bottom: 48px;
+}
+
+h3 {
+    margin-bottom: 24px;
+}
+
+p {
+    margin-bottom: 48px;
+}
+
+
+.header-text-box {
+    align-self: center;
 }
 
 .grid-3-cols {
@@ -44,13 +66,38 @@ h2 {
 
 .testimonial-box {
     grid-column: 2/ -1;
+    align-self: center;
 }
 
-.last-fig-item {
-    justify-self: end;
+.testimonial-text {
+    font-style: italic;
+    margin-bottom: 24px;
+}
+
+
+.keyboard-box {
+    padding: 24px;
 }
 
 .keyboard-price {
     display: flex;
     justify-content: space-between;
+}
+
+.keyboard-details {
+    list-style: none;
+    margin-bottom: 24px;
+}
+
+.keyboard-details li {
+    display: flex;
+    margin-bottom: 24px;
+    gap: 12px;
+    align-items: center;
+
+}
+
+
+footer {
+    margin-bottom: 48px;
 }
