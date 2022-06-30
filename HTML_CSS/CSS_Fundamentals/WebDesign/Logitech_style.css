@@ -48,7 +48,7 @@ h1 {
 }
 
 h2 {
-    margin-bottom: 48px;
+    margin-bottom: 34px;
     font-size: 36px;
     letter-spacing: -0.25px;
 }
@@ -88,6 +88,12 @@ p {
     font-size: 18px;
     line-height: 1.6;
 
+}
+
+.features-icon {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 14px;
 }
 
 .testimonial-section {
@@ -139,6 +145,11 @@ p {
     gap: 12px;
     align-items: center;
 
+}
+
+.keyboard-list-icon {
+    width: 20px;
+    height: 20px;
 }
 
 
