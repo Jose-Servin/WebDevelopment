@@ -1,5 +1,9 @@
 /* GENERAL STYLING */
 
+
+/* MAIN COLOR #40798C
+
+TEXT COLOR #1F363D */
 * {
     margin: 0;
     padding: 0;
@@ -8,12 +12,15 @@
 
 body {
     font-family: Inter, sans-serif;
+    color: #1F363D;
+    border-bottom: 8px solid #40798C;
 }
 
 .container {
     width: 960px;
     margin: 0 auto;
     /*border: 3px blue solid;*/
+
 }
 
 header {
@@ -25,6 +32,7 @@ header {
 
 img {
     justify-self: end;
+    display: inline-block;
 }
 
 header,
@@ -82,6 +90,11 @@ p {
 
 }
 
+.testimonial-section {
+    background-color: #CFE0C3;
+}
+
+
 .testimonial-box {
     grid-column: 2/ -1;
     align-self: center;
@@ -133,4 +146,38 @@ footer {
     margin-bottom: 48px;
     font-size: 12px;
     text-align: center;
+}
+
+
+a:link {
+    background-color: #40798C;
+    font-size: 16px;
+    align-self: end;
+    color: whitesmoke;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    display: inline-block;
+    font-weight: 500;
+
+
+}
+
+a:link:hover {
+    color: #1F363D;
+    background-color: #70A9A1;
+}
+
+
+.add-to-cart-button:link {
+    background-color: #40798C;
+    font-size: 14px;
+    align-self: end;
+    color: whitesmoke;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 5px 8px;
+    display: inline-block;
+    font-weight: 500;
+
 }
