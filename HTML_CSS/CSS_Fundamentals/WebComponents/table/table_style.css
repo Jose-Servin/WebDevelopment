@@ -1,0 +1,13 @@
+/* MAIN COLOR #40798C
+
+TEXT COLOR #1F363D */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, sans-serif;
+    color: #1F363D;
+}
