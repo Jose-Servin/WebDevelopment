@@ -15,5 +15,78 @@ body {
 .accordion {
     width: 700px;
     margin: 100px auto;
-    background-color: lightblue;
+    /*background-color: lightblue;*/
+    display: flex;
+    flex-direction: column;
+    row-gap: 32px;
+}
+
+.accordion-item {
+    /*border-top: 5px solid #40798C;*/
+    box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.1);
+    padding: 24px 36px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    column-gap: 24px;
+    row-gap: 32px;
+    align-items: center;
+}
+
+
+.accordion-number, .accordion-text {
+    font-size: 24px;
+    font-weight: 500;
+    /*color: #40798C;*/
+
+}
+
+.accordion-number {
+    color: #9b9b9b;
+}
+
+
+.accordion-icon {
+    width: 24px;
+    height: 24px;
+    stroke: #40798C;
+
+}
+
+.hidden-box {
+    grid-column: 2;
+    display: none;
+
+}
+
+.hidden-box p {
+    line-height: 1.6;
+    margin-bottom: 24px;
+
+}
+
+.hidden-box ul {
+    color: #666b72;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/*.hidden-box-el-02 li {*/
+/*    margin-bottom: 8px;*/
+/*}*/
+
+/*  USING FLEXBOX TO ADD LIST ITEM MARGINS*/
+
+.open {
+    border-top: 5px solid #40798C;
+
+}
+
+.open .hidden-box {
+    display: block;
+}
+
+.open .accordion-number, .open .accordion-text {
+    color: #40798C;
 }
