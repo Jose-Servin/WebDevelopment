@@ -11,3 +11,9 @@ body {
     font-family: Inter, sans-serif;
     color: #1F363D;
 }
+
+
+table {
+    width: 800px;
+    margin: 100px auto;
+}
