@@ -10,10 +10,35 @@ TEXT COLOR #1F363D */
 body {
     font-family: Inter, sans-serif;
     color: #1F363D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 
 table {
+    font-size: 18px;
     width: 800px;
-    margin: 100px auto;
+    margin: 100px;
+    /*border: 1px solid black;*/
+    border-collapse: collapse;
+
+}
+
+th, td {
+    /*border: 1px solid black;*/
+    padding: 16px 24px;
+    text-align: left;
+
+}
+
+thead th {
+    background-color: #40798C;
+    color: whitesmoke;
+    width: 25%;
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgba(224, 224, 224, 0.61);
 }
