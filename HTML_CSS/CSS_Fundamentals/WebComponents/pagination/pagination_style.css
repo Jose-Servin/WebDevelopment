@@ -1,0 +1,87 @@
+/* MAIN COLOR #40798C
+
+TEXT COLOR #1F363D */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, sans-serif;
+    color: #1F363D;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination {
+    /*background-color: #9b9b9b;*/
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 200px;
+}
+
+.page-num-icon {
+    width: 24px;
+    height: 24px;
+}
+
+
+.btn {
+    border: 1px solid #40798C;
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: none;
+
+
+}
+
+.btn:hover {
+    background-color: #40798C;
+}
+
+.btn:hover .btn-icon {
+    stroke: white;
+}
+
+.btn-icon {
+    width: 24px;
+    height: 24px;
+    stroke: #40798C;
+}
+
+.page-dots {
+    color: #868e96;
+
+}
+
+.page-link:link,
+.page-link:visited {
+    font-size: 18px;
+    color: #1F363D;
+    text-decoration: none;
+    border-radius: 50%;
+    height: 36px;
+    width: 36px;
+    display: flex; /* IN-LINE SO HEIGHT AND WIDTH APPLY OTHERWISE THEY WON'T CHANGE ANYTHING*/
+    align-items: center;
+    justify-content: center;
+}
+
+
+.page-link:hover,
+.page-link:active,
+.page-link.selected-page {
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    background-color: #40798C;
+    color: white;
+}
+
