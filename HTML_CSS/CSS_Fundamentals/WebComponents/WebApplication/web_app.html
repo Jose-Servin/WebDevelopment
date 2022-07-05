@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Application</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'League Gothic', sans-serif;
+            font-size: 24px;
+            text-align: center;
+            color: #343a40;
+            display: grid;
+            grid-template-columns: 80px 400px 1fr 250px;
+            grid-template-rows: 80px 1fr;
+            height: 100vh;
+            
+        }
+        
+        nav, section, main, aside {
+            padding: 24px;
+        }
+        
+        nav {
+            background-color: #495057;
+            color: whitesmoke;
+            grid-row: 1 / -1;
+        }
+        
+        menu {
+            background-color: #7048e8;
+            color: whitesmoke;
+            grid-column: 2 / -1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 40px;
+        }
+        
+        section {
+            background-color: #e9ecef;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            overflow: scroll;
+            
+        }
+        
+        main {
+        }
+        
+        aside {
+            background-color: #e9ecef;;
+        }
+        
+        button {
+            display: inline-block;
+            font-size: 16px;
+            background-color: #4a2f9b;
+            border: none;
+            cursor: pointer;
+            padding: 8px 16px;
+            font-weight: bold;
+            color: whitesmoke;
+        }
+        
+        button:last-child {
+            background-color: #c92a2a;
+            margin-left: auto;
+            
+        }
+        
+        .email {
+            background-color: #adb5bd;
+            height: 96px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+    
+    </style>
+</head>
+<body>
+<nav>
+    Nav
+</nav>
+
+<menu>
+    <button> New</button>
+    <button> Reply</button>
+    <button> Forward</button>
+    <button> Mark Unread</button>
+    <button> Trash</button>
+
+</menu>
+<section>
+    <div class="email"> Email 1</div>
+    <div class="email"> Email 2</div>
+    <div class="email"> Email 3</div>
+    <div class="email"> Email 4</div>
+    <div class="email"> Email 5</div>
+    <div class="email"> Email 6</div>
+    <div class="email"> Email 7</div>
+    <div class="email"> Email 8</div>
+    <div class="email"> Email 9</div>
+    <div class="email"> Email 10</div>
+
+
+</section>
+
+<main>Email View</main>
+<aside> Additional Information</aside>
+</body>
+</html>
