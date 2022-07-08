@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Example Main Page</title>
+    <title> {% block title %}Example Base Page {% endblock %} </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
@@ -37,9 +37,12 @@
     </div>
 </nav>
 
-{% block content %}
+<div>
+    {% block content %}
+    <h1> This is a custom H1 heading in the base.html page </h1>
+    {% endblock %}
 
-{% endblock %}
+</div>
 
 <!-- CREATING FOOTER -->
 <footer class="text-center text-lg-start bg-light text-muted">
