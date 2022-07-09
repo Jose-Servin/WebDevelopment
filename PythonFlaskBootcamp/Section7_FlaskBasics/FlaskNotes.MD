@@ -424,6 +424,20 @@ The `url_for()` helper function allows us to easily connect other template pages
 
 ```
 
+## Template Forms
+
+Template forms allow you to gather user input information using a form structure. For this example, we will gather
+the first and last name of the user and greet them. We will also build a custom 404 page for redirection if an
+invalid URL is attempted. <br>
+
+Our project structure is:
+
+* basics.py for backend running
+* A base.html page for template inheritance
+* home.html
+* signup.html
+* thankyou.html
+
 ## Introduction to Flask Forms
 
 Flask Forms are built using Flask WTF Form class. General steps to building out Forms on Flask are the following:
@@ -449,7 +463,7 @@ from wtforms import StringField, SubmitField
 app = Flask(__name__)
 
 # Step 2: configure secret key to use with CSRF (cross-site request forgery)
-# app.config is a configuration dictionary for out app
+# app.config is a configuration dictionary for our app
 app.config['SECRET_KEY'] = 'mysecretkey123'
 
 

@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -8,10 +8,16 @@ def index():
     return render_template('home.html')
 
 
-@app.route('/user/<user_name>')
-def template_inheritance_demo(user_name):
-    user_name = user_name
-    return render_template('user.html', user_name=user_name)
+@app.route('/signup-page')
+def signup():
+    return render_template('signup.html')
+
+
+@app.route('/thankyou')
+def thankyou():
+    first_name = request.args.get('fname')
+    last_name = request.args.get('lname')
+    return render_template('thankyou.html', first_name=first_name, last_name=last_name)
 
 
 if __name__ == '__main__':
