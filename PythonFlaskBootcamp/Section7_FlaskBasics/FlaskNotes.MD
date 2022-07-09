@@ -795,8 +795,8 @@ def index():
         session['information'] = form.information.data
         session['reason'] = form.reason.data
 
-        # once the session dictionary is defined use redirect and url_for to redirect to html page on submit
-        return redirect(url_for('thankyou'))
+        # only upon correct form submission does the user get re-directed to the render_template of the view function
+        return redirect(url_for('thankyou'))  # thankyou is the name of the view function
     # rendering the Flask_Forms_One_Index.html; this is the page rendered when view function runs
     return render_template('Flask_Forms_One_Index.html', form=form)
 
@@ -825,7 +825,7 @@ Index template for this project is shown below.
 </head>
 <body>
 <h1> Welcome to the info access bar: </h1>
-<form method="post">
+<form method="POST">
     {{form.hidden_tag()}}
     {{form.department.label}} {{form.department()}}
     <br>

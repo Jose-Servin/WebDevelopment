@@ -1,40 +1,63 @@
-# Section 9: Forms with Flask
-from flask import Flask, render_template
+from flask import Flask, render_template, session, redirect, url_for
 from flask_wtf import FlaskForm
-# from wtforms you import certain fields and provide parameters in the class buildup
-from wtforms import StringField, SubmitField
+from wtforms import StringField, BooleanField, DateTimeField, RadioField, SelectField, TextAreaField, SubmitField
+from wtforms.validators import DataRequired
 
-# Step 1: create application
 app = Flask(__name__)
 
-# Step 2: configure secret key to use with CSRF (cross-site request forgery)
-# app.config is a configuration dictionary for our app
 app.config['SECRET_KEY'] = 'mysecretkey123'
 
 
-# Step 3: create WTF Form class
-# inherit from FlaskForm
-class InfoForm(FlaskForm):
-    # define class attributes
-    department = StringField("What department do you work in? ")
-    submit = SubmitField("Submit")
+class UserForm(FlaskForm):
+    # enter username; check for validation
+
+    username = StringField("Please enter your username: ", validators=[DataRequired()])
+
+    # Booleanfield
+    valid_member = BooleanField("Select if you are a member of NLB? ")
+    # RadioField
+    membership_level = RadioField(
+        'Select your membership level: ',
+        choices=[
+            ('Level_1', 'Level One'),
+            ('Level_2', 'Level Two'),
+            ('Level_3', 'Level Three')
+        ]
+    )
+
+    # SelectField
+    load_type = SelectField('Type of Load: ',
+                            choices=[
+                                ('Hot_Loads', 'Hot'),
+                                ('Long_Haul', 'Long Haul'),
+                                ('Reefer', 'Reefer')
+                            ]
+                            )
+    # comments
+    comments = TextAreaField()
+    # submit
+    submit = SubmitField('Submit')
 
 
-# Step 4: create view function that creates instance of WTF form class and checks if it's a valid submission
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    # set department variable equal to False, different from the department attribute defined in our class
-    department = False
-    # create instance of our InfoForm class 
-    form = InfoForm()
+    form = UserForm()
 
     if form.validate_on_submit():
-        # grab department from form (grabs data submitted for this attribute)
-        department = form.department.data
-        # reset this attribute to an empty string so the StringField doesn't show previous entry
-        form.department.data = ''
+        session['username'] = form.username.data
+        session['valid_member'] = form.valid_member.data
+        session['membership_level'] = form.membership_level.data
+        session['load_type'] = form.load_type.data
+        session['comments'] = form.comments.data
 
-    return render_template('home.html', form=form, department=department)
+        return redirect(url_for('thankyou'))
+
+    return render_template('home.html', form=form)
+
+
+@app.route('/thankyou', methods=['GET', 'POST'])
+def thankyou():
+    return render_template('thankyou.html')
 
 
 if __name__ == '__main__':

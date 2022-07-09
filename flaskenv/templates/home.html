@@ -1,23 +1,30 @@
-<p>
-    <!-- originally set to False so at start up else block runs but then grabs Form data entered -->
-    {% if department %}
-    The department you work at is: {{department}}. <br>
-    Update it in the form below:
-    
-    {% else %}
-    Please enter your department:
-    
-    {% endif %}
-</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Home page </title>
 
+</head>
+<body>
+
+<h1> Please fill out the form to continue: </h1>
 
 <form method="POST">
-    <!-- This is for the CSRF security feature, accessible because we inherit from FlaskForm in our class setup.-->
-    {{ form.hidden_tag() }}
-    <!-- for fields defined such as StringField we can access label or execute which will create element -->
-    <!-- form.department.label accesses the text inside the () for our defined StringField -->
-    <!-- form.department() will run the function; create a fill-in box -->
-    {{ form.department.label }} {{ form.department() }}
-    <!-- Here we are calling the submit method defined in out InfoForm class -->
-    {{ form.submit() }}
+    {{form.hidden_tag()}}
+    {{form.username.label}} {{form.username()}}
+    <br>
+    {{form.valid_member.label}} {{form.valid_member()}}
+    <br>
+    {{form.membership_level.label}}{{form.membership_level()}}
+    <br>
+    {{form.load_type.label}}{{form.load_type()}}
+    <br>
+    <p> Any additional comments? </p>
+    {{form.comments()}}
+    <br>
+    {{form.submit()}}
+
 </form>
+
+</body>
