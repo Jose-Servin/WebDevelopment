@@ -1,36 +1,40 @@
-from flask import Flask, render_template, request
-import re
+# Section 9: Forms with Flask
+from flask import Flask, render_template
+from flask_wtf import FlaskForm
+# from wtforms you import certain fields and provide parameters in the class buildup
+from wtforms import StringField, SubmitField
 
+# Step 1: create application
 app = Flask(__name__)
 
+# Step 2: configure secret key to use with CSRF (cross-site request forgery)
+# app.config is a configuration dictionary for our app
+app.config['SECRET_KEY'] = 'mysecretkey123'
 
-@app.route('/')
+
+# Step 3: create WTF Form class
+# inherit from FlaskForm
+class InfoForm(FlaskForm):
+    # define class attributes
+    department = StringField("What department do you work in? ")
+    submit = SubmitField("Submit")
+
+
+# Step 4: create view function that creates instance of WTF form class and checks if it's a valid submission
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('home.html')
+    # set department variable equal to False, different from the department attribute defined in our class
+    department = False
+    # create instance of our InfoForm class 
+    form = InfoForm()
 
+    if form.validate_on_submit():
+        # grab department from form (grabs data submitted for this attribute)
+        department = form.department.data
+        # reset this attribute to an empty string so the StringField doesn't show previous entry
+        form.department.data = ''
 
-@app.route('/report')
-def report():
-    username = request.args.get('username')
-
-    has_uppercase = False
-    has_lowercase = False
-    has_number = False
-
-    has_uppercase = any(i.isupper() for i in username)
-    has_lowercase = any(i.islower() for i in username)
-    has_number = username[-1].isdigit()
-
-    valid_username = has_number and has_uppercase and has_lowercase
-
-    return render_template('signup.html', valid_username=valid_username, has_number=has_number,
-                           has_lowercase=has_lowercase,
-                           has_uppercase=has_uppercase)
-
-
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404_error.html'), 404
+    return render_template('home.html', form=form, department=department)
 
 
 if __name__ == '__main__':

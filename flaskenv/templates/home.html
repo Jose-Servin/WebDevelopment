@@ -1,23 +1,23 @@
-{% extends "base.html" %}
-{% block title %}Home{% endblock %}
-
-
-{% block content %}
-
-<h2> Welcome to our home page. </h2>
-<h3> Fill out the form with a Username to check if it's valid: </h3>
-
-<ul>
-    <li>Must have an upper case letter somewhere.</li>
-    <li>Must have a lower case letter somewhere.</li>
-    <li>Must have a number at the end.</li>
-</ul>
-
-<form action={{url_for('report')}}>
+<p>
+    <!-- originally set to False so at start up else block runs but then grabs Form data entered -->
+    {% if department %}
+    The department you work at is: {{department}}. <br>
+    Update it in the form below:
     
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username">
-    <input type="submit" value="Submit">
+    {% else %}
+    Please enter your department:
+    
+    {% endif %}
+</p>
 
+
+<form method="POST">
+    <!-- This is for the CSRF security feature, accessible because we inherit from FlaskForm in our class setup.-->
+    {{ form.hidden_tag() }}
+    <!-- for fields defined such as StringField we can access label or execute which will create element -->
+    <!-- form.department.label accesses the text inside the () for our defined StringField -->
+    <!-- form.department() will run the function; create a fill-in box -->
+    {{ form.department.label }} {{ form.department() }}
+    <!-- Here we are calling the submit method defined in out InfoForm class -->
+    {{ form.submit() }}
 </form>
-{% endblock %}

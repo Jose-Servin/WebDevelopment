@@ -515,6 +515,112 @@ Another concept introduced was gathering user info submitted which is done using
 {% endblock %}
 ```
 
+## A simple username checker
+
+Our html code looks like:
+
+```html
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+
+{% block content %}
+
+<h2> Welcome to our home page. </h2>
+<h3> Fill out the form with a Username to check if it's valid: </h3>
+
+<ul>
+    <li>Must have an upper case letter somewhere.</li>
+    <li>Must have a lower case letter somewhere.</li>
+    <li>Must have a number at the end.</li>
+</ul>
+
+<form action={{url_for('report')}}>
+    
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
+    <input type="submit" value="Submit">
+
+</form>
+{% endblock %}
+```
+
+```html
+{% extends "base.html" %}
+{% block title %}Report{% endblock %}
+
+
+{% block content %}
+
+<h2> Results..... </h2>
+
+
+{% if  valid_username %}
+<h3> Congrats, you have a valid username! </h3>
+
+{% else %}
+<ul>
+    {% if not has_uppercase %}
+    <li> Username does not have an uppercase letter.</li>
+    {% endif %}
+    {% if not has_lowercase %}
+    <li> Username does not have a lowercase letter.</li>
+    {% endif %}
+    {% if not has_number %}
+    <li> Username does not end with a digit.</li>
+    {% endif %}
+
+</ul>
+{% endif %}
+
+<a href="{{url_for('index')}}">Go back home</a>
+
+{% endblock %}
+```
+
+In the backend we do all the logic checking; we simply pass back boolean values for each condition check.
+
+```python
+from flask import Flask, render_template, request
+import re
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+    return render_template('home.html')
+
+
+@app.route('/report')
+def report():
+    username = request.args.get('username')
+
+    has_uppercase = False
+    has_lowercase = False
+    has_number = False
+
+    has_uppercase = any(i.isupper() for i in username)
+    has_lowercase = any(i.islower() for i in username)
+    has_number = username[-1].isdigit()
+
+    valid_username = has_number and has_uppercase and has_lowercase
+
+    return render_template('signup.html', valid_username=valid_username, has_number=has_number,
+                           has_lowercase=has_lowercase,
+                           has_uppercase=has_uppercase)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404_error.html'), 404
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+```
+
 ## Introduction to Flask Forms
 
 Flask Forms are built using Flask WTF Form class. General steps to building out Forms on Flask are the following:
@@ -595,7 +701,7 @@ After defining the simple backend using wtforms class we define our index.html p
     {{ form.hidden_tag() }}
     <!-- for fields defined such as StringField we can access label or execute which will create element -->
     <!-- form.department.label accesses the text inside the () for our defined StringField -->
-    <!-- form.department() will run the function -->
+    <!-- form.department() will run the function; create a fill-in box. -->
     {{ form.department.label }} {{ form.department() }}
     <!-- Here we are calling the submit method defined in out InfoForm class -->
     {{ form.submit() }}
