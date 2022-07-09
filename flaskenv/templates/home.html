@@ -3,28 +3,32 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <title> Home page </title>
 
 </head>
 <body>
 
-<h1> Please fill out the form to continue: </h1>
+
+{% for message in get_flashed_messages() %}
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+    </button>
+    {{message}}
+</div>
+
+{% endfor %}
+
 
 <form method="POST">
     {{form.hidden_tag()}}
-    {{form.username.label}} {{form.username()}}
-    <br>
-    {{form.valid_member.label}} {{form.valid_member()}}
-    <br>
-    {{form.membership_level.label}}{{form.membership_level()}}
-    <br>
-    {{form.load_type.label}}{{form.load_type()}}
-    <br>
-    <p> Any additional comments? </p>
-    {{form.comments()}}
-    <br>
     {{form.submit()}}
-
 </form>
 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
 </body>

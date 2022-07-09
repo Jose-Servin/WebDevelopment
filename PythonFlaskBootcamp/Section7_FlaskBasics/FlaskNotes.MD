@@ -874,4 +874,109 @@ Thank you page is as follows:
 * Often, we want to send a message to the user that we don't need to save or fix permanently to the template page.
 * We can <strong> flash </strong> a message to the user that can then be closed.
 
-To do this, you import a flash function from Flask and then connect to some Bootstrap code. 
+To do this, you import a flash function from Flask and then connect to some Bootstrap code. <br>
+
+Our backend looks like:
+
+```python
+from flask import Flask, render_template, flash, session, redirect, url_for
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+
+# Next we set up our application and security key:
+app = Flask(__name__)
+
+app.config['SECRET_KEY'] = 'mysecretkey123'
+
+
+# We move on to creating a simple form.
+class SimpleForm(FlaskForm):
+    submit = SubmitField('Click Me')
+
+
+# here we define our index view function
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    form = SimpleForm()
+
+    if form.validate_on_submit():
+        flash('You just clicked the button')
+
+        return redirect(url_for('index'))
+
+    return render_template('home.html', form=form)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+```
+
+Next we move on the front end `home.html` page building.
+
+* the function `get_flashed_messages()` is what gets passed back when we use `flash` in Flask.
+* In other words, when we use `flash` Flask will automatically call the function `get_flashed_messaged()`.
+* We use a `for` loop in case we have multiple flashed messages.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title> Home page </title>
+
+</head>
+<body>
+
+
+{% for message in get_flashed_messages() %}
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+    </button>
+    {{message}}
+</div>
+
+{% endfor %}
+
+
+<form method="POST">
+    {{form.hidden_tag()}}
+    {{form.submit()}}
+</form>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+</body>
+```
+
+In this section, we combine bootstrap's alert with our defined flashed text.
+
+```html
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+    </button>
+    {{message}}
+</div>
+```
+
+So now, our message will appear inside the bootstrap alert. <br>
+
+The last section of our HTML simply creates that `submit` button so that the user can see the flash message. Again
+here, we use the `form` element.
+
+```html
+
+<form method="POST">
+    {{form.hidden_tag()}}
+    {{form.submit()}}
+</form>
+
+```
