@@ -15,12 +15,13 @@ body {
 .container {
     margin: 0 auto;
     width: 1200px;
+    /*background-color: #70A9A1;*/
 
 }
 
 header {
     background-color: #dee2e6;
-    height: 100vh; /* vh UNIT STANDS FOR VIEW-PORT HEIGHT*/
+    height: 75vh; /* vh UNIT STANDS FOR VIEW-PORT HEIGHT*/
     position: relative;
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)),
     url("../header-background.jpg");
@@ -28,13 +29,54 @@ header {
     color: whitesmoke;
 }
 
-
-nav {
-    font-size: 20px;
-    font-weight: 700;
+.nav-container {
+    
+    font-weight: 500;
+    font-size: 24px;
     display: flex;
     justify-content: space-between;
-    padding-top: 32px;
+    align-items: center;
+    color: whitesmoke;
+}
+
+.logo {
+    cursor: pointer;
+}
+
+.nav-links {
+    list-style: none;
+
+}
+
+.nav-links li {
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.nav-links li a {
+    transition: all 0.3s ease 0s
+
+}
+
+.nav-links li a:hover {
+    color: #228be6;
+
+}
+
+.log-in-btn {
+    padding: 8px 16px;
+    color: whitesmoke;
+    font-size: 24px;
+    background-color: rgba(34, 139, 230, 1);
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.log-in-btn:hover {
+    background-color: rgba(34, 139, 230, 0.8);
+
 }
 
 .header-container {
