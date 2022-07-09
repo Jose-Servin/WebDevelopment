@@ -438,6 +438,83 @@ Our project structure is:
 * signup.html
 * thankyou.html
 
+The backend is fairly simple, we define our `route` functions and for this case we added a 404 error handler in case
+the user tries to access a page not found.
+
+```python
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+    return render_template('home.html')
+
+
+@app.route('/signup-page')
+def signup():
+    return render_template('signup.html')
+
+
+@app.route('/thankyou')
+def thankyou():
+    first_name = request.args.get('fname')
+    last_name = request.args.get('lname')
+    return render_template('thankyou.html', first_name=first_name, last_name=last_name)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404_error.html'), 404
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+```
+
+Now, `base.html` contains our nav bar and footer which will be present in all pages. `home.html` is where we ask the
+user is they would like to sign up. `signup.html` is where we gather the `first` and `last` name of the user,
+followed by a simple thank-you message displayed via `thankyou.html`. <br>
+
+Here is where we also introduced the `url_for()` function which we used to tied together views and functions. For
+example:
+
+```html
+
+<form action="{{url_for('thankyou')}}">
+    <label for="fname">First name:</label>
+    <input type="text" id="fname" name="fname">
+    <label for="lname">Last name:</label>
+    <input type="text" id="lname" name="lname">
+    <input type="submit" value="submit-form">
+</form>
+```
+
+Here we are saying "once the user submits, run the view function in the backend called `thankyou`". This in turn,
+will render a different view. <br>
+
+A good place for this function is in our `base.html` page for home buttons or buttons that should always take a user
+to a specific view. We defined this `url_for()` function in the base view and then inherit it to all views that
+should have those common elements present as well. <br>
+
+Another concept introduced was gathering user info submitted which is done using `request.args.get(<attribute name>)
+`. This allowed us to use the user input in `thankyou.html` view by defining and referncing the gathered variables.
+
+```html
+{% extends "base.html" %}
+{% block title %}Thank you Page{% endblock %}
+
+
+{% block content %}
+
+<h2> Thank you for signing-up! {{first_name | capitalize}} {{last_name | capitalize}} </h2>
+<a href="{{url_for('index')}}"> Home</a>
+
+{% endblock %}
+```
+
 ## Introduction to Flask Forms
 
 Flask Forms are built using Flask WTF Form class. General steps to building out Forms on Flask are the following:
