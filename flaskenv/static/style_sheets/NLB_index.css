@@ -16,6 +16,7 @@ body {
     margin: 0 auto;
     width: 1200px;
     /*background-color: #70A9A1;*/
+    background-color: #9b9b9b;
 
 }
 
@@ -45,6 +46,8 @@ header {
 
 .nav-links {
     list-style: none;
+    cursor: pointer;
+
 
 }
 
@@ -63,21 +66,6 @@ header {
 
 }
 
-.log-in-btn {
-    padding: 8px 16px;
-    color: whitesmoke;
-    font-size: 24px;
-    background-color: rgba(34, 139, 230, 1);
-    border: none;
-    border-radius: 9px;
-    cursor: pointer;
-    transition: all 0.3s ease 0s;
-}
-
-.log-in-btn:hover {
-    background-color: rgba(34, 139, 230, 0.8);
-
-}
 
 .header-container {
     width: 1200px;
@@ -104,20 +92,30 @@ p {
     margin-bottom: 48px;
 }
 
+
 .btn:link,
 .btn:visited {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 500;
-    background-color: #228be6;
-    color: white;
+    background-color: rgba(34, 139, 230, 0.9);
+    color: whitesmoke;
     text-decoration: none;
     display: inline-block;
     padding: 16px 32px;
     border-radius: 9px;
 }
 
+
+.btn:hover {
+    background-color: #228be6;
+    transform: scale(1.1);
+    transition: all .2s ease-in-out;
+}
+
+
 section {
     padding: 96px 0;
+    background-color: lightcyan;
 }
 
 h2 {
