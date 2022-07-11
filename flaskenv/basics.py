@@ -10,7 +10,8 @@ app.config['SECRET_KEY'] = 'mysecretkey123'
 
 # We move on to creating a simple form.
 class SimpleForm(FlaskForm):
-    submit = SubmitField('Click Me')
+    department = StringField('What department are you in? ')
+    submit = SubmitField('Submit')
 
 
 # here we define our index view function
@@ -20,7 +21,8 @@ def index():
     form = SimpleForm()
 
     if form.validate_on_submit():
-        flash('You just clicked the button')
+        session['department'] = form.department.data
+        flash(f"You are in the {session['department']} department. ")
 
         return redirect(url_for('index'))
 
