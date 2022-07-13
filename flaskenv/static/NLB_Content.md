@@ -132,8 +132,8 @@ Privacy & terms
 
 - Navigation
 - Hero
-- Features
 - Featured In Section
+- Features
 - How it Works
 - Example Loads (List of drivers)
 - CTA (fill out form)
