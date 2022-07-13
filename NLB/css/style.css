@@ -49,13 +49,12 @@ body {
 }
 
 
-.test {
-    padding: 4rem;
-    font-size: 2rem;
+.section-hero {
+    height: 75vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)),
+    url("../imgs/head_background_img.jpg");
+    background-size: cover;
     color: whitesmoke;
-    max-width: 50rem;
-    background-color: lightskyblue;
-    border-right: solid 5px black;
 }
 
 
