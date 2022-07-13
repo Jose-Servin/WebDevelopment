@@ -36,6 +36,11 @@ WHITESPACE:
     box-sizing: border-box;
 }
 
+html {
+    /*font-size: 10px;*/
+    font-size: 62.5%;
+}
+
 body {
     font-family: Rubik, sans-serif;
     line-height: 1;
@@ -43,6 +48,15 @@ body {
     color: #3a3939;
 }
 
+
+.test {
+    padding: 4rem;
+    font-size: 2rem;
+    color: whitesmoke;
+    max-width: 50rem;
+    background-color: lightskyblue;
+    border-right: solid 5px black;
+}
 
 
 
