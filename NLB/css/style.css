@@ -7,7 +7,7 @@ FONT SIZE SYSTEM (px)
 
 FONT WEIGHT: 400 DEFAULT
 
-MAIN COLOR: #087f5b
+MAIN COLOR: #228be6
 GREY COLOR: #343a40
 
 
@@ -51,11 +51,50 @@ body {
 
 .section-hero {
     height: 75vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)),
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
     url("../imgs/head_background_img.jpg");
     background-size: cover;
     color: whitesmoke;
 }
 
+.hero-container {
+    /* WE CREATE THIS ELEMENT SO WE CAN DEFINE A FIXED WIDTH*/
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /*background-color: lightgray;*/
+    max-width: 160rem;
+    align-items: center;
+    padding-top: 120px;
+    gap: 4rem
 
+}
 
+.heading-primary {
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 3.2rem;
+}
+
+.hero-description {
+    font-size: 3rem;
+    line-height: 1.5;
+    margin-bottom: 4.8rem;
+}
+
+.hero-img {
+    max-width: 100%;
+}
+
+.btn:link,
+.btn:visited {
+    background-color: #1b6fb8;
+    color: whitesmoke;
+    font-size: 2rem;
+    display: inline-block;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: .3rem;
+
+}
