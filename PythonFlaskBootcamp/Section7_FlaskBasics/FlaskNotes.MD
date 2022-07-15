@@ -980,3 +980,182 @@ here, we use the `form` element.
 </form>
 
 ```
+
+## Flashing session data to the user
+
+In the backend we set up our form and flash message as well as the render files.
+
+```python
+from flask import Flask, render_template, flash, session, redirect, url_for
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+
+# Next we set up our application and security key:
+app = Flask(__name__)
+
+app.config['SECRET_KEY'] = 'mysecretkey123'
+
+
+# We move on to creating a simple form.
+class SimpleForm(FlaskForm):
+    department = StringField('What department are you in? ')
+    submit = SubmitField('Submit')
+
+
+# here we define our index view function
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    form = SimpleForm()
+
+    if form.validate_on_submit():
+        session['department'] = form.department.data
+        flash(f"You are in the {session['department']} department. ")
+
+        return redirect(url_for('index'))
+
+    return render_template('home.html', form=form)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+```
+
+For the front-end we use the `get_flashed_messages()'` and build out the form which will capture the user input data.
+Note here that the actual "data grabbig" occurs in the back-end when we
+define `flash(f"You are in the {session['department']} department. ")`. <br>
+
+The front-end is simple two processes.
+
+1. iterate through the flashed messages
+2. build out the form
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title> Home page </title>
+
+</head>
+<body>
+
+
+{% for message in get_flashed_messages() %}
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+    </button>
+    {{message}}
+</div>
+
+{% endfor %}
+
+
+<form method="POST">
+    {{form.hidden_tag()}}
+    {{form.department.label}} {{form.department()}}
+    {{form.submit()}}
+</form>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+</body>
+```
+
+## Flask and Databases High level Introduction
+
+By default, Flask comes with SQLite which is a simple database engine that can handle simple web application needs.
+Top handle boundary is close to the 100,000 hits per day. <br>
+
+To connect Python, Flask and SQL we will need an `ORM (Object Relational Mapper)`. Which is just "something" that
+allows us to convert python code to SQL commands. Most common ORM for python is `SQL Alchemy`. <br>
+
+We can map out our abstraction levels as being:
+
+1. SQL Database
+2. SQL Alchemy
+3. Flask SQL Alchemy
+
+## How to introduce a database
+
+1. Set up SQLite Database in Flask App
+2. Create a Model in Flask App
+3. Perform basic CRUD on our model
+
+## How to set up a SQLite database
+
+1. Create Flask App
+2. Configure Flask App for SQLAlchemy
+3. Pass our application into SQLAlchemy class call
+
+These steps can be accomplished with:
+
+```python
+import os
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+# __file__ --> basics.py
+# the os.path.dirname is flaskenv/basics.py
+# the abspath is the "full path" which when printed is /Users/joseservin/WebDevelopment/flaskenv
+
+# 1. Create Flask App
+app = Flask(__name__)
+
+# 2. Configure Flask App for SQLAlchemy
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join((basedir, 'data.sqlite'))
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# 3. Pass our application into SQLAlchemy class call
+
+db = SQLAlchemy(app)
+
+```
+
+## Notes on Model in Flask
+
+* Models directly link to a table in a SQL database.
+* You do not need to create the table manually in SQL.
+* We create a `Model` class in Python that generates the table for us.
+* "Models" == Tables in our Database.
+* By default, the `__tablename__` is the name of our Model class `class Department(db.Model):`.
+
+## How to create a Model in Flask (similar to creating a Form)
+
+1. Create a Model class
+2. Inherit from `db.Model`
+3. Optionally provide a table name
+4. Add in table columns as attributes
+5. Add in methods for `__init__` and `__repr__`.
+
+Note `__repr__` is simply the text representation of that object. <br>
+
+To build a column we define `column_name = db.Column(db.DataType, column_property)`.
+
+We build a database with the following code:
+
+```python
+# HOW TO CREATE A MODEL
+class Departments(db.Model):
+    # create columns for table
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
+    security_level = db.Column(db.Integer)
+
+    def __init__(self, name, security_level):
+        self.name = name
+        self.age = security_level
+
+    def __repr__(self):
+        rep = f"The {self.name} has a security level of {self.security_level}. "
+        return rep
+
+```
