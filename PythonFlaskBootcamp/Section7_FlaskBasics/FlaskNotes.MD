@@ -1248,8 +1248,26 @@ If any issues arise we can simply delete the `data.sqlite` file/database and re-
 `crud.py` to avoid any errors. This is not best practices but simply a quick way to "restart" when first learning
 about Flask and Flask Databases.
 
-## Flask Migrate 
+## Flask Migrate
 
+"Migrating" refers to the transfer of any changes done to your "Model" (DB.TABLE). Most commonly this can be adding
+a new column or other Model changes. <br>
 
+This migration is done using `Flask-Migrate` which is a python package that is used to ensure any changes done to
+our model take effect on our database.  <br>
 
+The first step we must take is set the `FLASK_APP` environment variable. (`export FLASK_APP=myapp.py`). This let's
+Flask Migrate know which file represents our Flask Application.
+
+The 4 main commands are:
+
+1. `export FLASK_APP=myapp.py`
+2. `flask db init` : sets up the migration directory.
+3. `flask db migrate -m "some message"` sets up the migration file
+4. `flask db upgrade`: updates the database with the migration
+
+`Migrate(app, db)` connects our application to our database in order to add on Migration capabilities to run terminal
+commands. We do this because we've already run the `basics.py` file which holds our `Model` class. If we were to add
+a column to this class our database would not be updated with these changes. We need to "migrate" that information
+to the database. After running the 4 commands, our application.py file is now synced with our database.
 
