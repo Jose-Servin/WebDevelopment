@@ -1159,3 +1159,97 @@ class Departments(db.Model):
         return rep
 
 ```
+
+## How to save information to the Database
+
+First we create a new python file called `setupdatabase.py` and import the `db` and `Departments` which is also our
+Model name. In the code below we are transforming our Model into a database table and creating instances of that
+Model which will be saved to the database using python commands.
+
+```python
+from basics import db, Departments
+
+# CREATES ALL THE TABLES, ESSENTIALLY TRANSFORMING MODEL CLASS --> DB.TABLE
+db.create_all()
+
+# CREATE DEPARTMENT INSTANCES
+
+Tech = Departments('PepsiCo Tech Team', 5)
+AM = Departments('Account Managers', 3)
+CM = Departments('Carrier Managers', 3)
+Data_Analyst = Departments('Data Analyst', 8)
+Customer_Service = Departments('Customer Service', 1)
+
+# SAVING DEPARTMENT INSTANCES TO THE DATABASE 
+db.session.add_all([Tech, AM, CM, Data_Analyst, Customer_Service])
+db.session.commit()
+
+print(Tech.id)
+print(AM.id)
+```
+
+After running `setupdatabase.py` we can check if the instances were created correctly by running `print(Department.
+query.all())` which should return in our terminal:
+
+```commandline
+[The PepsiCo Tech Team has a security level of 7. , 
+The Account Managers has a security level of 3. , 
+The Carrier Managers has a security level of 3. , 
+The Data Analyst has a security level of 8. , 
+The Customer Service has a security level of 1. ]
+```
+
+We should also see a `data.sqlite` file in our project folder present.
+
+## Performing CRUD
+
+To perform CRUD operations on our database, we must be cautious and not call upon instances that no longer exist in
+the database. For our example we followed the code below in a file called `crud.py`:
+
+```python
+from basics import db, Departments
+
+## CREATE ##
+
+extra_dept = Departments('Extra Department', 10)
+db.session.add(extra_dept)
+db.session.commit()
+
+## READ ###
+all_departments = Departments.query.all()  # returns list of all department objects in the database table
+print(all_departments)
+
+# SELECT BY ID
+department_id_1 = Departments.query.get(1)  # This returns the Object with ID 1
+print(department_id_1.name)  # this prints out the specific attribute of that object returned
+
+# FILTER (THIS PRODUCES SQL CODE FOR US)
+AM_dept = Departments.query.filter_by(name='Account Managers')
+print(AM_dept.all())
+
+### UPDATE
+first_dept = Departments.query.get(1)
+first_dept.security_level = 7
+db.session.add(first_dept)  # adding back in the edited Department object
+db.session.commit()
+
+#### DELETE
+dept_to_del = Departments.query.get(6)
+db.session.delete(dept_to_del)
+db.session.commit()
+
+## Check changes
+all_departments = Departments.query.all()
+print(all_departments)
+
+```
+
+If any issues arise we can simply delete the `data.sqlite` file/database and re-run `setupdatabase.py` and then
+`crud.py` to avoid any errors. This is not best practices but simply a quick way to "restart" when first learning
+about Flask and Flask Databases.
+
+## Flask Migrate 
+
+
+
+

@@ -11,7 +11,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 
 # 2. Configure Flask App for SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join((basedir, 'data.sqlite'))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # 3. Pass our application into SQLAlchemy class call
@@ -28,7 +28,7 @@ class Departments(db.Model):
 
     def __init__(self, name, security_level):
         self.name = name
-        self.age = security_level
+        self.security_level = security_level
 
     def __repr__(self):
         rep = f"The {self.name} has a security level of {self.security_level}. "
