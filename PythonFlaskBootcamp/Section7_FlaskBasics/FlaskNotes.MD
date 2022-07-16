@@ -1095,7 +1095,7 @@ We can map out our abstraction levels as being:
 2. Configure Flask App for SQLAlchemy
 3. Pass our application into SQLAlchemy class call
 
-These steps can be accomplished with:
+These steps can be accomplished with (`basic.py`):
 
 ```python
 import os
@@ -1140,7 +1140,7 @@ Note `__repr__` is simply the text representation of that object. <br>
 
 To build a column we define `column_name = db.Column(db.DataType, column_property)`.
 
-We build a database with the following code:
+We build a database with the following code (`basics.py`):
 
 ```python
 # HOW TO CREATE A MODEL
@@ -1270,4 +1270,194 @@ The 4 main commands are:
 commands. We do this because we've already run the `basics.py` file which holds our `Model` class. If we were to add
 a column to this class our database would not be updated with these changes. We need to "migrate" that information
 to the database. After running the 4 commands, our application.py file is now synced with our database.
+
+After introducing a new column to our Model/Table our `basics.py` file contains the following:
+
+```python
+import os
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+# __file__ --> basics.py
+# the os.path.dirname is flaskenv/basics.py
+# the abspath is the "full path" which when printed is /Users/joseservin/WebDevelopment/flaskenv
+
+# CREATING FLASK APP
+app = Flask(__name__)
+
+# SQLALCHEMY CONFIGURATIONS
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# DEFINING DATABASE
+db = SQLAlchemy(app)
+
+# MIGRATING APP AND DB
+Migrate(app, db)
+
+
+# HOW TO CREATE A MODEL
+class Departments(db.Model):
+    # create columns for table
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
+    security_level = db.Column(db.Integer)
+    incentive = db.Column(db.BOOLEAN)
+
+    def __init__(self, name, security_level, incentive):
+        self.name = name
+        self.security_level = security_level
+        self.incentive = incentive
+
+    def __repr__(self):
+        rep = f"The {self.name} has a security level of {self.security_level}. Incentive? {self.incentive} "
+        return rep
+
+```
+
+To introduce a migration we do:
+
+1. `flask db migrate -m "message about migration change"`
+2. `flask db upgrade`
+
+## Flask Relationships
+
+It is common for relationships to exists between Models "Tables" in our Application and in general. These relations
+are formed by a common column. The simples example can be:
+
+* Customer Table
+    * Customer ID (Primary Key)
+    * Customer Name
+    * Customer Address
+    * Order Number (Foreign Key)
+* Order Table
+    * Order ID (Primary Key)
+    * Order Quantity
+    * Order Amount
+    * Order Number (Foreign Key)
+
+These two tables are related via an "Order Number" column.
+
+We are going to create many departments that have a one-to-many relationship with employees and a one-to-one
+relationship between Department and Managers.
+
+### One-to-many relationship
+
+We can create a one-to-many relationship between Departments and Employees. In essence there can be many employees
+working for a specific Department. To define a relationship between our Models/Tables we
+use `employees = db.relationship('Employees', backref='department', lazy='dynamic')`. Where:
+
+* first argument: `Model who the relationship is with`
+* `backref='departments'` adds a reference to our Employee models to remember it is related to the Departments model.
+* `lazy="dynamic"` defines how to data will get loaded.
+* `uselist=False` this parameter defines what to return, by default this is True
+
+Our final `basics.py` script contains the following:
+
+```python
+import os
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+# __file__ --> basics.py
+# the os.path.dirname is flaskenv/basics.py
+# the abspath is the "full path" which when printed is /Users/joseservin/WebDevelopment/flaskenv
+
+# CREATING FLASK APP
+app = Flask(__name__)
+
+# SQLALCHEMY CONFIGURATIONS
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# DEFINING DATABASE
+db = SQLAlchemy(app)
+
+# MIGRATING APP AND DB
+Migrate(app, db)
+
+
+# HOW TO CREATE A MODEL
+class Departments(db.Model):
+    # create columns for table
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
+    security_level = db.Column(db.Integer)
+    incentive = db.Column(db.BOOLEAN)
+    # ONE-TO-MANY RELATIONSHIP (DEPARTMENT --> EMPLOYEES)
+    employees = db.relationship('Employees', backref='department', lazy='dynamic')
+
+    # ONE-TO-ONE RELATIONSHIP (DEPARTMENT --> MANAGER)
+    manager = db.relationship('Manager', backref='department', uselist=False)
+
+    def __init__(self, name, security_level, incentive):
+        self.name = name
+        self.security_level = security_level
+        self.incentive = incentive
+
+    def __repr__(self):
+        if self.manager:
+            return f"Department name: {self.name} | Manager {self.manager.first_name} {self.manager.last_name}"
+            # self.manager.name is an attribute from the Manager class
+        else:
+            return f"{self.name} department has no Manager assigned. "
+
+    def report_employees(self):
+        print(f"{self.name} department has these employees: ")
+        for i in self.employees:
+            print(f"{i.first_name} {i.last_name}")  # this is an attribute from the Employees class
+
+
+class Employees(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.Text)
+    last_name = db.Column(db.Text)
+
+    # CONNECTING EMPLOYEES WITH DEPARTMENTS
+    department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))
+
+    def __init__(self, first_name, last_name, department_id):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.department_id = department_id
+
+    def __repr__(self):
+        return f"{self.first_name} {self.last_name} Department ID {self.department_id}"
+
+
+class Manager(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.Text)
+    last_name = db.Column(db.Text)
+
+    # CONNECTING DEPARTMENT WITH ONE MANAGER
+    department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))
+
+    def __init__(self, first_name, last_name, department_id):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.department_id = department_id
+
+    def __repr__(self):
+        return f"Manager: {self.first_name} {self.last_name} work in Department ID {self.department_id}"
+
+```
+
+This essentially has two main parts:
+
+1. We defined our application, database path with SQLAlchemy authorization as well as defining our Migration.
+2. In the `class` definition portion we created our 3 Models.
+    1. Departments
+    2. Employees
+    3. Managers
+
+Our main Model `Department` contains the column relationships. So far, we can tell is there is a one-to-one
+relationship because we set `uselist=False`. 
+
+
+
 
