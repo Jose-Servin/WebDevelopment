@@ -28,17 +28,16 @@ class Departments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
     security_level = db.Column(db.Integer)
-    incentive = db.Column(db.BOOLEAN)
+    # incentive = db.Column(db.BOOLEAN)
     # ONE-TO-MANY RELATIONSHIP (DEPARTMENT --> EMPLOYEES)
     employees = db.relationship('Employees', backref='department', lazy='dynamic')
 
     # ONE-TO-ONE RELATIONSHIP (DEPARTMENT --> MANAGER)
     manager = db.relationship('Manager', backref='department', uselist=False)
 
-    def __init__(self, name, security_level, incentive):
+    def __init__(self, name, security_level):
         self.name = name
         self.security_level = security_level
-        self.incentive = incentive
 
     def __repr__(self):
         if self.manager:

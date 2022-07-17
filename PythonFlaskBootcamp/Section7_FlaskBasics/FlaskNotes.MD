@@ -1456,8 +1456,26 @@ This essentially has two main parts:
     3. Managers
 
 Our main Model `Department` contains the column relationships. So far, we can tell is there is a one-to-one
-relationship because we set `uselist=False`. 
+relationship because we set `uselist=False`.
 
+## Exploring Flask Model Relationships
 
+Starting the DB exploration part, we already have Department instances created from `setupdatabase.py`. If we run
+this command we get a list of all Department instances currently in our database.
 
+```python
+all_departments = Departments.query.all()
+print(all_departments)
+```
+
+```commandline
+[PepsiCo Tech Team department has no Manager assigned. , 
+Account Managers department has no Manager assigned. , 
+Carrier Managers department has no Manager assigned. , 
+Data Analyst department has no Manager assigned. , 
+Customer Service department has no Manager assigned. ]
+
+```
+
+Therefore, our fist step is to create both `Manager` instances and `Employees` instances. 
 
