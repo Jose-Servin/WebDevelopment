@@ -1516,8 +1516,18 @@ Camila Servin
 
 ```
 
-## Databases in Views
+## Databases in Views (Request_Info Project)
 
 To being this section, we delete the old migrations and db from our project folder. The active file we will work on
-is now called `request_info.py` and our HTML will be in `request_form.html`. 
+is now called:
+
+* `request_info.py`
+* `request_info_forms.py`
+* `request_info_base.html`
+* `request_info_home.html`
+* `request_info_add.html`
+* `request_info_delete.html`
+* `request_info_list.html`
+
+
 
