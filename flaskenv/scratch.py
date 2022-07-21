@@ -1,5 +1,5 @@
 from basics import db, Departments, Manager, Employees
-from setupdatabase import Tech, AM, CM, Data_Analyst, Customer_Service
+from setupdatabase import Tech, AM
 
 all_departments = Departments.query.all()  # returns list of all department objects in the database table
 # print(all_departments)

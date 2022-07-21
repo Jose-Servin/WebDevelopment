@@ -23,16 +23,14 @@ Migrate(app, db)
 
 
 # HOW TO CREATE A MODEL
-class Departments(db.Model):
-    # create columns for table
+class Department(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
     security_level = db.Column(db.Integer)
-    # incentive = db.Column(db.BOOLEAN)
-    # ONE-TO-MANY RELATIONSHIP (DEPARTMENT --> EMPLOYEES)
-    employees = db.relationship('Employees', backref='department', lazy='dynamic')
+    # ONE-TO-MANY RELATIONSHIP (ONE DEPARTMENT CAN HAVE MANY EMPLOYEES)
+    employees = db.relationship('Employee', backref='department', lazy='dynamic')
 
-    # ONE-TO-ONE RELATIONSHIP (DEPARTMENT --> MANAGER)
+    # ONE-TO-ONE RELATIONSHIP (ONE DEPARTMENT HAS ONE MANAGER)
     manager = db.relationship('Manager', backref='department', uselist=False)
 
     def __init__(self, name, security_level):
@@ -48,17 +46,17 @@ class Departments(db.Model):
 
     def report_employees(self):
         print(f"{self.name} department has these employees: ")
-        for i in self.employees:
-            print(f"{i.first_name} {i.last_name}")  # this is an attribute from the Employees class
+        for employee in self.employees:
+            print(f"{employee.first_name} {employee.last_name}")  # this is an attribute from the Employees class
 
 
-class Employees(db.Model):
+class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.Text)
     last_name = db.Column(db.Text)
 
     # CONNECTING EMPLOYEES WITH DEPARTMENTS
-    department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))
+    department_id = db.Column(db.Integer, db.ForeignKey('department.id'))
 
     def __init__(self, first_name, last_name, department_id):
         self.first_name = first_name
@@ -66,7 +64,7 @@ class Employees(db.Model):
         self.department_id = department_id
 
     def __repr__(self):
-        return f"{self.first_name} {self.last_name} Department ID {self.department_id}"
+        return f"Employee: {self.first_name} {self.last_name} works in Department ID {self.department_id}"
 
 
 class Manager(db.Model):
@@ -74,8 +72,8 @@ class Manager(db.Model):
     first_name = db.Column(db.Text)
     last_name = db.Column(db.Text)
 
-    # CONNECTING DEPARTMENT WITH ONE MANAGER
-    department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))
+    # CONNECTING ONE DEPARTMENT WITH ONE MANAGER
+    department_id = db.Column(db.Integer, db.ForeignKey('department.id'))
 
     def __init__(self, first_name, last_name, department_id):
         self.first_name = first_name
@@ -83,4 +81,4 @@ class Manager(db.Model):
         self.department_id = department_id
 
     def __repr__(self):
-        return f"Manager: {self.first_name} {self.last_name} work in Department ID {self.department_id}"
+        return f"Manager: {self.first_name} {self.last_name} works in Department ID {self.department_id}"
