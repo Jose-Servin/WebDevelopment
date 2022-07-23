@@ -1,5 +1,5 @@
 import os
-from request_info_forms import AddForm, DelForm
+from request_info_forms import AddForm, DelForm, AddManager
 from flask import Flask, render_template, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -25,12 +25,30 @@ Migrate(app, db)
 class Department(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
+    manager = db.relationship('Manager', backref='department', uselist=False)
 
     def __init__(self, name):
         self.name = name
 
     def __repr__(self):
-        return f"Department: {self.name}"
+        if self.manager:
+            return f"Department: {self.name} has assigned manager {self.manager.name}. "
+        else:
+            return f"Department: {self.name} has no manager assigned yet. "
+
+
+class Manager(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
+    # CONNECTING ONE DEPARTMENT WITH ONE MANAGER
+    department_id = db.Column(db.Integer, db.ForeignKey('department.id'))
+
+    def __init__(self, name, department_id):
+        self.name = name
+        self.department_id = department_id
+
+    def __repr__(self):
+        return f"Manager: {self.name} works in the Department with ID: {self.department_id}"
 
 
 ###############################
@@ -77,6 +95,24 @@ def delete_department():
 
     else:
         return render_template('request_info_delete.html', form=form)
+
+
+@app.route('/add_manager', methods=['GET', 'POST'])
+def add_manager():
+    form = AddManager()
+
+    if form.validate_on_submit():
+        manager_name = form.name.data
+        manager_dept_id = form.dept_id.data
+
+        # Building Manager instance
+        manager_instance = Manager(manager_name, manager_dept_id)
+
+        # Add Manager instance to DB
+        db.session.add(manager_instance)
+        db.session.commit()
+        return redirect(url_for('list_depts'))
+    return render_template('request_info_AddManager.html', form=form)
 
 
 if __name__ == '__main__':

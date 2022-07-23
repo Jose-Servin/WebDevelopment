@@ -1529,5 +1529,414 @@ is now called:
 * `request_info_delete.html`
 * `request_info_list.html`
 
+## Creating a simple Add, Delete and Report back Form
 
+For this process we will create four views:
+
+* Home Page
+* Add Department page
+* Delete department page
+* List department page
+
+The basic purpose of this form is to allow the user to add a department, display a list of departments that have
+been added and then give the ability to delete a department.
+
+### Frontend
+
+`home.py` is extending from `base.py` which contains the navbar.
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Base Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<style>
+    
+    
+    .container {
+        width: 800px;
+        margin: 100px auto;
+        background-color: rgba(218, 218, 218, 0.55)
+    }
+    
+    .nav {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
+<body>
+<div class="container">
+    <nav class="nav">
+        <a class="nav-link" href="{{url_for('index')}}">Home</a>
+        <a class="nav-link" href="{{url_for('add_department')}}">Add Department</a>
+        <a class="nav-link" href="{{url_for('delete_department')}}">Delete Department</a>
+        <a class="nav-link" href="{{url_for('list_depts')}}">List Departments</a>
+    </nav>
+</div>
+
+{% block content %}
+
+{% endblock %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+```
+
+```html
+{% extends "request_info_base.html" %}
+
+{% block content %}
+<h1> This is the home page </h1>
+
+{% endblock %}
+```
+
+Our add and delete pages follow similar formats: <br>
+`add.py`
+
+```html
+{% extends "request_info_base.html" %}
+
+{% block content %}
+
+<h2> Add a new department in the form below: </h2>
+
+<form method='POST'>
+    {{form.hidden_tag()}}
+    {{ form.name.label }} {{ form.name() }}
+    {{ form.submit() }}
+
+</form>
+
+{% endblock %}
+```
+
+`delete.py`
+
+```html
+{% extends "request_info_base.html" %}
+
+{% block content %}
+
+<h2> Provide Department ID for the Department you wish to delete: </h2>
+
+<form method='POST'>
+    {{form.hidden_tag()}}
+    {{ form.id.label }} {{ form.id() }}
+    {{ form.submit() }}
+
+</form>
+
+{% endblock %}
+```
+
+Finally, to list out the departments `list.py`
+
+```html
+{% extends "request_info_base.html" %}
+
+{% block content %}
+
+<h2> Here are all the Departments available: </h2>
+<ul>
+    {% for dept in all_departments %}
+    
+    <li> {{dept}}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+```
+
+### Backend
+
+In the backend we define our `application, forms and models` in various files. <br>
+
+Our main application sits in `request_info.py` with our Models. The form classes are defined in `request_info_forms.
+py`.
+
+`application.py`
+
+```python
+import os
+from request_info_forms import AddForm, DelForm
+from flask import Flask, render_template, url_for, redirect
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'mysecretkey'
+
+###############################
+### Setting up SQL Database ###
+###############################
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+Migrate(app, db)
+
+
+###############################
+########## Models #############
+###############################
+
+class Department(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return f"Department: {self.name}"
+
+
+###############################
+####### View Function #########
+###############################
+
+@app.route('/')
+def index():
+    return render_template('request_info_home.html')
+
+
+@app.route('/add', methods=['GET', 'POST'])
+def add_department():
+    form = AddForm()
+    if form.validate_on_submit():
+        # Grab info provided by user
+        dept_name = form.name.data
+        # Create Table instance
+        new_dept = Department(dept_name)
+        # DB interaction
+        db.session.add(new_dept)
+        db.session.commit()
+        return redirect(url_for('list_depts'))
+
+    else:
+        return render_template('request_info_add.html', form=form)
+
+
+@app.route('/list')
+def list_depts():
+    all_departments = Department.query.all()
+    return render_template('request_info_list.html', all_departments=all_departments)
+
+
+@app.route('/remove', methods=['GET', 'POST'])
+def delete_department():
+    form = DelForm()
+    if form.validate_on_submit():
+        dept_id = form.id.data
+        dept = Department.query.get(dept_id)
+        db.session.delete(dept)
+        db.session.commit()
+        return redirect(url_for('list_depts'))
+
+    else:
+        return render_template('request_info_delete.html', form=form)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+```
+
+`forms.py`
+
+```python
+from flask_wtf import FlaskForm
+from wtforms import StringField, IntegerField, SubmitField
+
+
+class AddForm(FlaskForm):
+    name = StringField('Name of Department: ')
+    submit = SubmitField('Add Department')
+
+
+class DelForm(FlaskForm):
+    id = IntegerField("ID of Department to remove: ")
+    submit = SubmitField('Delete Department')
+
+```
+
+## Introducing Table relationships with Forms
+
+We introduce the ability to add a Manger to a Department using the Department ID. This is defined in our `Models`
+where the one-to-one relationship is defined.
+
+First we add a new `form` class:
+
+```python
+class AddManager(FlaskForm):
+    name = StringField('Name of Manager: ')
+    dept_id = IntegerField('Department ID: ')
+    submit = SubmitField('Add Manager to Department')
+```
+
+Next we define the HTML page for this new form:
+
+```html
+{% extends "request_info_base.html" %}
+
+{% block content %}
+
+<h2> Add a Manager </h2>
+<p>
+    Add a Manager to a Department by filling out the form below:
+</p>
+
+<form method='POST'>
+    {{form.hidden_tag()}}
+    {{ form.name.label }} {{ form.name() }}
+    <br>
+    {{form.dept_id.label}} {{form.dept_id()}}
+    <br>
+    {{ form.submit() }}
+
+</form>
+
+{% endblock %}
+```
+
+In the backend we define our Models relationship and the view functions. This is where the Department --> Manager
+relationship is defined and where we commit any changes to the DB.
+
+```python
+import os
+from request_info_forms import AddForm, DelForm, AddManager
+from flask import Flask, render_template, url_for, redirect
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'mysecretkey'
+
+###############################
+### Setting up SQL Database ###
+###############################
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+Migrate(app, db)
+
+
+###############################
+########## Models #############
+###############################
+
+class Department(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
+    manager = db.relationship('Manager', backref='department', uselist=False)
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        if self.manager:
+            return f"Department: {self.name} has assigned manager {self.manager.name}. "
+        else:
+            return f"Department: {self.name} has no manager assigned yet. "
+
+
+class Manager(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
+    # CONNECTING ONE DEPARTMENT WITH ONE MANAGER
+    department_id = db.Column(db.Integer, db.ForeignKey('department.id'))
+
+    def __init__(self, name, department_id):
+        self.name = name
+        self.department_id = department_id
+
+    def __repr__(self):
+        return f"Manager: {self.name} works in the Department with ID: {self.department_id}"
+
+
+###############################
+####### View Function #########
+###############################
+
+@app.route('/')
+def index():
+    return render_template('request_info_home.html')
+
+
+@app.route('/add', methods=['GET', 'POST'])
+def add_department():
+    form = AddForm()
+    if form.validate_on_submit():
+        # Grab info provided by user
+        dept_name = form.name.data
+        # Create Table instance
+        new_dept = Department(dept_name)
+        # DB interaction
+        db.session.add(new_dept)
+        db.session.commit()
+        return redirect(url_for('list_depts'))
+
+    else:
+        return render_template('request_info_add.html', form=form)
+
+
+@app.route('/list')
+def list_depts():
+    all_departments = Department.query.all()
+    return render_template('request_info_list.html', all_departments=all_departments)
+
+
+@app.route('/remove', methods=['GET', 'POST'])
+def delete_department():
+    form = DelForm()
+    if form.validate_on_submit():
+        dept_id = form.id.data
+        dept = Department.query.get(dept_id)
+        db.session.delete(dept)
+        db.session.commit()
+        return redirect(url_for('list_depts'))
+
+    else:
+        return render_template('request_info_delete.html', form=form)
+
+
+@app.route('/add_manager', methods=['GET', 'POST'])
+def add_manager():
+    form = AddManager()
+
+    if form.validate_on_submit():
+        manager_name = form.name.data
+        manager_dept_id = form.dept_id.data
+
+        # Building Manager instance
+        manager_instance = Manager(manager_name, manager_dept_id)
+
+        # Add Manager instance to DB
+        db.session.add(manager_instance)
+        db.session.commit()
+        return redirect(url_for('list_depts'))
+    return render_template('request_info_AddManager.html', form=form)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+```
+
+Another small change was adding a tab on the navbar that's created in the `base.html` file for this new `Add
+Manager` functionality.
+
+```html
+<a class="nav-link" href="{{url_for('add_manager')}}">Add Manager</a>
+```
 
