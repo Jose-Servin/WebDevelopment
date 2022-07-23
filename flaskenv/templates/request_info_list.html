@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "request_info_base.html" %}
 
-</body>
-</html>
+{% block content %}
+
+<h2> Here are all the Departments available: </h2>
+<ul>
+    {% for dept in all_departments %}
+    
+    <li> {{dept}}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

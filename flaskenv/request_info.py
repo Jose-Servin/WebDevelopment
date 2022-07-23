@@ -46,8 +46,11 @@ def index():
 def add_department():
     form = AddForm()
     if form.validate_on_submit():
+        # Grab info provided by user
         dept_name = form.name.data
+        # Create Table instance
         new_dept = Department(dept_name)
+        # DB interaction
         db.session.add(new_dept)
         db.session.commit()
         return redirect(url_for('list_depts'))
