@@ -89,12 +89,34 @@ body {
 
 .btn:link,
 .btn:visited {
-    background-color: #1b6fb8;
-    color: whitesmoke;
     font-size: 2rem;
     display: inline-block;
     padding: 1rem 2rem;
     text-decoration: none;
     border-radius: .3rem;
 
+}
+
+.btn-full:link,
+.btn-full:visited {
+    background-color: #1b6fb8;
+    color: whitesmoke;
+}
+
+.btn-full:hover,
+.btn-full:active {
+    background-color: #498cc6;
+    color: whitesmoke;
+}
+
+.btn-outline:link,
+.btn-outline:visited {
+    background-color: rgba(255, 255, 255, 0.65);
+    color: #555;
+}
+
+.btn-outline:hover,
+.btn-outline:active {
+    background-color: #bbd4ea;
+    color: #555;
 }
