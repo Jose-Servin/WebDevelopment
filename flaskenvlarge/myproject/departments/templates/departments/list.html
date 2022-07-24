@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2> Here are all the Departments available: </h2>
+<ul>
+    {% for dept in all_departments %}
+    
+    <li> {{dept}}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

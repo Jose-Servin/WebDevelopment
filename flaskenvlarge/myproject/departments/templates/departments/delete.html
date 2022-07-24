@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2> Provide Department ID for the Department you wish to delete: </h2>
+
+<form method='POST'>
+    {{form.hidden_tag()}}
+    {{ form.id.label }} {{ form.id() }}
+    {{ form.submit() }}
+
+</form>
+
+{% endblock %}

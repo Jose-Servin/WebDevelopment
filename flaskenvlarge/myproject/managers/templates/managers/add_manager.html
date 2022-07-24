@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2> Add a Manager </h2>
+<p>
+    Add a Manager to a Department by filling out the form below:
+</p>
+
+<form method='POST'>
+    {{form.hidden_tag()}}
+    {{ form.name.label }} {{ form.name() }}
+    <br>
+    {{form.dept_id.label}} {{form.dept_id()}}
+    <br>
+    {{ form.submit() }}
+
+</form>
+
+{% endblock %}
