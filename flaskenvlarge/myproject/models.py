@@ -1,5 +1,5 @@
 # set up db inside the __init__.py file under myproject folder
-from flaskenvlarge.myproject import db
+from myproject import db
 
 
 class Department(db.Model):

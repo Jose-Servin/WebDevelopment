@@ -19,3 +19,9 @@ db = SQLAlchemy(app)
 
 # MIGRATING APP AND DB
 Migrate(app, db)
+
+from myproject.departments.views import department_blueprint
+from myproject.managers.views import manager_blueprint
+
+app.register_blueprint(manager_blueprint, url_prefix='/manager')
+app.register_blueprint(department_blueprint, url_prefix='/department')
