@@ -1940,3 +1940,123 @@ Manager` functionality.
 <a class="nav-link" href="{{url_for('add_manager')}}">Add Manager</a>
 ```
 
+## Large Flask Applications
+
+Notes on how to structure and run large flask applications can be found in the `flaskenvlarge` directory.
+
+## User Authentication
+
+We begin user authentication using `Flask-Bcrypt` and `werkzeug.security`. For this project we will be using the
+`flaskenv` directory from a virtual environment starting point. <br>
+
+We begin by setting up out `__init__.py` file.
+
+```python
+import os
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_login import LoginManager
+
+login_manager = LoginManager()
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secretkey123'
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+# SQLALCHEMY CONFIGURATIONS
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# DEFINING DATABASE
+db = SQLAlchemy(app)
+
+# MIGRATING APP AND DB
+Migrate(app, db)
+
+# this configures our application to have user login management
+login_manager.init_app(app)
+
+# This is the view users will go to when logging-in
+login_manager.login_view = 'login'
+
+```
+
+Some notable differences:
+
+* we are using the `LoginManager` class
+* We configure our application to have login management capabilities
+* We define our login view for the user
+
+Next we moved on to `models.py` which contains our `User` model. This represents any user who is trying to both
+register and log in to our app.
+
+```python
+from user_auth import db, login_manager
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+
+
+class User(db.Model, UserMixin):
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(64), unique=True, index=True)
+    username = db.Column(db.String(64), unique=True, index=True)
+    password_hash = db.Column(db.String(128))
+
+    def __int__(self, email, username, password):
+        self.email = email
+        self.username = username
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+```
+
+Here we introduce the concept of password hashing. Specifically we are using the `werkzeug` package to generate a
+`password_hash` and securely store it.
+
+Next we set up our `forms` in the `form.py` file. Here we add the two classes for `LoginForm` and `RegistrationForm`.
+
+```python
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Email, EqualTo
+from wtforms import ValidationError
+from models import User
+
+
+class LoginForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Log In')
+
+
+class RegistrationForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password',
+                             validators=[DataRequired(),
+                                         EqualTo('pass_check', message='Passwords do not match. Try again! ')])
+    pass_check = PasswordField('Confirm Password', validators=[DataRequired()])
+    submit = SubmitField('Register')
+
+    def validate_email(self, email):
+        if User.query.filter_by(email=self.email.data).first():
+            raise ValidationError('Email has been registered')
+
+    def validate_username(self, username):
+        if User.query.filter_by(username=self.username.data).first():
+            raise ValidationError('Username has been registered')
+
+```
+
+The `RegistrationForm` contains new features such as validating the info provided by the user and being able to
+query our `User` database in order to check if either email or username already exists. 
