@@ -37,3 +37,30 @@ def login():
             # this is saying "if a user was created and if the password matches the hash"""
             login_user(user)
             flash('Logged in Successfully!')
+
+            next_action = request.args.get('next')
+            if next_action is None or not next_action[0] == '/':
+                next_action = url_for('welcome_user')
+            else:
+                return redirect(next_action)
+    return render_template('login.html', form=form)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+
+    if form.validate_on_submit():
+        user_email = form.email.data
+        user_username = form.username.data
+        user_password = form.password.data
+        user_instance = User(user_email, user_username, user_password)
+        db.session.add(user_instance)
+        db.session.commit()
+        flash('Thank you for registering!')
+        return redirect(url_for('login'))
+    return render_template('register.html', form=form)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

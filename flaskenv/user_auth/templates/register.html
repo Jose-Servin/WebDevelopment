@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+
+<form method="POST">
+    {{form.hidden_tag()}}
+    {{form.email.label}} {{form.email()}} <br>
+    {{form.username.label}}{{form.username()}} <br>
+    {{form.password.label}}{{form.password()}} <br>
+    {{form.pass_check.label}}{{form.pass_check()}} <br>
+    {{form.submit()}}
+</form>
+
+{% endblock %}
