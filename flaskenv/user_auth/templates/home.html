@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block title %} Home Page {% endblock title %}
 
 {% block content %}
 <!-- JUMBOTRON SECTION -->
@@ -6,7 +7,7 @@
     <!-- JUMBOTRON SECTION IF USER IS AUTHENTICATED -->
     {% if current_user.is_authenticated %}
     <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">Welcome! {{current_user.username}}</h1>
+        <h1 class="display-5 fw-bold">Welcome to the home page! {{current_user.username}}</h1>
         <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in
             previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your
             liking.</p>

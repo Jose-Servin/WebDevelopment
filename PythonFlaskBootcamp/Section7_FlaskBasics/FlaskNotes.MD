@@ -1986,7 +1986,7 @@ Some notable differences:
 
 * we are using the `LoginManager` class
 * We configure our application to have login management capabilities
-* We define our login view for the user
+* We define our login view for the user, this is defined structurally in `app.py`.
 
 Next we moved on to `models.py` which contains our `User` model. This represents any user who is trying to both
 register and log in to our app.
@@ -1997,6 +1997,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 
+# This allows flask to grab current user data to show them specific pages 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
@@ -2021,7 +2022,10 @@ class User(db.Model, UserMixin):
 ```
 
 Here we introduce the concept of password hashing. Specifically we are using the `werkzeug` package to generate a
-`password_hash` and securely store it.
+`password_hash` and securely store it. We also have this `load_user` function that will grab specific user
+information to present in the front-end. Basically answers "what user is currently logged in? ". The `UserMixin`
+class we are inheriting from will later give us the capability to use `{% if current_user.is_authenticated %}` in
+our views. <br>
 
 Next we set up our `forms` in the `form.py` file. Here we add the two classes for `LoginForm` and `RegistrationForm`.
 
@@ -2059,4 +2063,81 @@ class RegistrationForm(FlaskForm):
 ```
 
 The `RegistrationForm` contains new features such as validating the info provided by the user and being able to
-query our `User` database in order to check if either email or username already exists. 
+query our `User` database in order to check if either email or username already exists. We also have a few
+validators in place to ensure we receive the required information from the user and this new `EqualTo()` function
+will check that the password provided is "equal to" the password check we ask for. <br>
+
+Now we can move on to building our `views` in our `app.py` file. <br>
+
+For the front-end we have:
+
+* base.html
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %} Base Page {% endblock title %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body>
+<!-- DYNAMIC NAVBAR SECTION -->
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">NLB</a>
+        <!-- Button that appears when page collapses -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Div containing nav bar links/elements -->
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" aria-current="page" href="{{url_for('home')}}">Home</a>
+                {% if current_user.is_authenticated %}
+                <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                {%else%}
+                <a class="nav-link" href="{{url_for('login')}}">Login</a>
+                <a class="nav-link" href="{{url_for('register')}}">Register</a>
+                
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- This part can be overridden by child templates. -->
+<!-- Child templates components will fit between NavBar and Footer -->
+{% block content %}
+
+{% endblock %}
+
+<!-- Footer for all child html pages-->
+
+<div class="container">
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="{{url_for('home')}}" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+        </ul>
+        <p class="text-center text-muted">&copy; 2022 Company, Inc</p>
+    </footer>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+```
+
+* home.html
+* register.html
+* welcome_user.html
+

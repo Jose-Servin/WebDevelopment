@@ -5,7 +5,6 @@ from user_auth.models import User
 from user_auth.forms import LoginForm, RegistrationForm
 
 
-# setting up home view
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -38,11 +37,11 @@ def login():
             login_user(user)
             flash('Logged in Successfully!')
 
+            # Flask Login Part 3: 12 min mark
             next_action = request.args.get('next')
             if next_action is None or not next_action[0] == '/':
                 next_action = url_for('welcome_user')
-            else:
-                return redirect(next_action)
+            return redirect(next_action)
     return render_template('login.html', form=form)
 
 
@@ -51,11 +50,10 @@ def register():
     form = RegistrationForm()
 
     if form.validate_on_submit():
-        user_email = form.email.data
-        user_username = form.username.data
-        user_password = form.password.data
-        user_instance = User(user_email, user_username, user_password)
-        db.session.add(user_instance)
+        user = User(email=form.email.data,
+                    username=form.username.data,
+                    password=form.password.data)
+        db.session.add(user)
         db.session.commit()
         flash('Thank you for registering!')
         return redirect(url_for('login'))
