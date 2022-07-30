@@ -7,6 +7,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/flaskenv" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/flaskenvlarge" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/flaskenvblog" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.10" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
