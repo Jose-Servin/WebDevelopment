@@ -1997,21 +1997,18 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 
-# This allows flask to grab current user data to show them specific pages 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
 
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'users'
-
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
     password_hash = db.Column(db.String(128))
 
-    def __int__(self, email, username, password):
+    def __init__(self, email, username, password):
         self.email = email
         self.username = username
         self.password_hash = generate_password_hash(password)
@@ -2138,6 +2135,146 @@ For the front-end we have:
 ```
 
 * home.html
+
+```html
+{% extends "base.html" %}
+{% block title %} Home Page {% endblock title %}
+
+{% block content %}
+<!-- JUMBOTRON SECTION -->
+<div class="p-5 mb-4 bg-light rounded-3">
+    <!-- JUMBOTRON SECTION IF USER IS AUTHENTICATED -->
+    {% if current_user.is_authenticated %}
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Welcome to the home page! {{current_user.username}}</h1>
+        <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in
+            previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your
+            liking.</p>
+    </div>
+    {%else%}
+    <!-- JUMBOTRON SECTION IF USER IS NOT AUTHENTICATED -->
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Please Login or Register to continue. </h1>
+        <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in
+            previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your
+            liking.</p>
+    </div>
+    
+    {%endif%}
+</div>
+{% endblock %}
+```
+
 * register.html
+
+```html
+{% extends "base.html" %}
+{% block title %} Registration Page {% endblock title %}
+
+{% block content %}
+
+<form method="POST">
+    {{form.hidden_tag()}}
+    {{form.email.label}} {{form.email()}} <br>
+    {{form.username.label}}{{form.username()}} <br>
+    {{form.password.label}}{{form.password()}} <br>
+    {{form.pass_check.label}}{{form.pass_check()}} <br>
+    {{form.submit()}}
+</form>
+
+{% endblock %}
+
+```
+
 * welcome_user.html
+
+```html
+{% extends "base.html" %}
+{% block title %} Welcome {% endblock title %}
+{% block content %}
+<div class="px-4 pt-5 my-5 text-center border-bottom">
+    <h1 class="display-4 fw-bold">Welcome {{current_user.username}}</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">Congrats! You are now logged-in! </p>
+    </div>
+    <div class="overflow-hidden" style="max-height: 30vh;">
+        <div class="container px-5">
+            <img src="NLB/imgs/mock-load-board.png"
+                 class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example load board"
+                 width="700" height="500" loading="lazy">
+        </div>
+    </div>
+</div>
+{% endblock %}
+```
+
+Lastly, our `app.py` file will bring all our `Models`, `Forms` and `HTML Views` together by defining view functions.
+
+```python
+from user_auth import app, db
+from flask import render_template, redirect, request, url_for, flash, abort
+from flask_login import login_user, login_required, logout_user
+from user_auth.models import User
+from user_auth.forms import LoginForm, RegistrationForm
+
+
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+
+@app.route('/welcome')
+@login_required
+def welcome_user():
+    return render_template('welcome_user.html')
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('You have logged out!')
+    return redirect(url_for('home'))
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        # grab user from DB
+        user = User.query.filter_by(email=form.email.data).first()
+
+        if user.check_password(form.password.data) and user is not None:
+            # this is saying "if a user was created and if the password matches the hash"""
+            login_user(user)
+            flash('Logged in Successfully!')
+
+            # Flask Login Part 3: 12 min mark
+            next_action = request.args.get('next')
+            if next_action is None or not next_action[0] == '/':
+                next_action = url_for('welcome_user')
+            return redirect(next_action)
+    return render_template('login.html', form=form)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+
+    if form.validate_on_submit():
+        user = User(email=form.email.data,
+                    username=form.username.data,
+                    password=form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Thank you for registering!')
+        return redirect(url_for('login'))
+    return render_template('register.html', form=form)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+```
 
