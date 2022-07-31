@@ -56,6 +56,21 @@ class BlogPosts{
 }
 ```
 
+## Project Properties
 
+### Colors
 
+* Coolars Pallet
+
+<img src="pythonflaskblog/static/images/coolars_pallete.png" alt='generated pallet from coolars.com'>
+
+* Python Hex Colors
+
+<img src="pythonflaskblog/static/images/python_pallete.png" alt="python color pallete">
+
+### Fonts
+
+[Permanent Marker](https://fonts.google.com/specimen/Permanent+Marker?category=Handwriting&preview.text=PyWebDev&preview.text_type=custom)
+
+[Inter](https://fonts.google.com/specimen/Inter?query=inter&preview.text=PyWebDev&preview.text_type=custom)
 
